@@ -8,6 +8,10 @@ function MsgSideBarComp() {
       name: "Alice",
       message: "message",
    };
+   const group = {
+      name: "Group A",
+      message: "message",
+   };
 
    const [state, setState] = useState(true);
 
@@ -28,8 +32,9 @@ function MsgSideBarComp() {
             <div className="w-90 p-2">
                <MsgBarSearch />
 
-               <MsgReceiver person={person} state={state} />
-               <MsgReceiver person={person} state={state} />
+               <MsgReceiver person={group} state={true} />
+               <MsgReceiver person={person} state={false} />
+               <MsgReceiver person={person} state={false} />
                <MsgReceiver person={person} state={false} />
             </div>
          </div>
