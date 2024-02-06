@@ -1,8 +1,9 @@
+import { ReduxReceiver } from "../../component/message/MsgReceiver";
 import { SWITCH_RECEIVER } from "../actions";
 
 type SetReceiver = {
    type: typeof SWITCH_RECEIVER;
-   payload: object;
+   payload: ReduxReceiver;
 };
 
 type MsgAction = SetReceiver;
@@ -11,6 +12,7 @@ const initialState = {
    receiver: {
       message: "",
       name: "",
+      image: "",
    },
 };
 
@@ -21,6 +23,9 @@ const messageReducer = (state = initialState, action: MsgAction) => {
             ...state,
             receiver: action.payload,
          };
+
+      default:
+         return state;
    }
 };
 

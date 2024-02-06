@@ -11,7 +11,7 @@ function MessagePage() {
                <Col sm={4} className="msg-leftbar-light vh-100 p-0">
                   <MsgSideBarComp />
                </Col>
-               <Col sm={8} className="bg-primary">
+               <Col sm={8} className="p-0">
                   <MsgMainComp />
                </Col>
             </Row>
