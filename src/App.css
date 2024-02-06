@@ -15,6 +15,23 @@
    color: #fff;
 }
 
+.bg-sent-msg {
+   background-color: #beb7a4;
+}
+.bg-received-msg {
+   background-color: #ff7f11;
+}
+.bg-msg-form-container {
+   background-color: #000000;
+}
+
+.h-86 {
+   height: 87%;
+}
+.h-20 {
+   height: 12%;
+}
+
 .w-90 {
    width: 90%;
 }
@@ -35,4 +52,8 @@
    background-color: #ffffffb6;
    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
       rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.fs-7 {
+   font-size: 0.7rem;
 }

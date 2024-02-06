@@ -1,6 +1,7 @@
 import { Image } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { switchReceiver } from "../../redux/actions";
+import { FC } from "react";
 
 type PersonProp = {
    person: {
@@ -24,7 +25,7 @@ export type ReduxRootState = {
 
 function MsgReceiver(props: PersonProp) {
    const dispatch = useDispatch();
-   const image = "https://placedog.net/50";
+   const image = "https://placedog.net/50/50";
 
    //  store receiver data in the redux store
    const handleClick = () => {
