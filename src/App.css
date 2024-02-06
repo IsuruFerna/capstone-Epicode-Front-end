@@ -1,0 +1,37 @@
+.msg-leftbar-dark {
+   background-color: black;
+}
+
+.msg-leftbar-light {
+   background-color: #beb7a462;
+}
+
+.bg-icon-primary {
+   background-color: #ff3f00;
+}
+.bg-icon-primary:hover {
+   background-color: #ff400063;
+   color: #fff;
+}
+
+.w-90 {
+   width: 90%;
+}
+
+.w-10 {
+   width: 10%;
+}
+
+.bg-msg-receiver-selected {
+   background-color: #fff;
+}
+
+.bg-msg-receiver {
+   background-color: #ffffff81;
+}
+
+.bg-msg-receiver:hover {
+   background-color: #ffffffb6;
+   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
