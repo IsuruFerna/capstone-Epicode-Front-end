@@ -25,6 +25,7 @@ const TestMsgPage = () => {
       const { value, name } = event.target;
       setUserData({ ...userData, [name]: value });
    };
+
    const handleMessage = (event) => {
       const { value } = event.target;
       setUserData({ ...userData, message: value });
