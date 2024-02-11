@@ -7,7 +7,7 @@ type Selection = {
    trends: boolean;
 };
 
-const HomeButtomMenu = () => {
+const HomeTopMenu = () => {
    const [select, setSelect] = useState<Selection>({
       feed: true,
       following: false,
@@ -77,4 +77,4 @@ const HomeButtomMenu = () => {
    );
 };
 
-export default HomeButtomMenu;
+export default HomeTopMenu;

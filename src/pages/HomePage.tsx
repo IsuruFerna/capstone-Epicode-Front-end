@@ -1,10 +1,10 @@
 import React from "react";
-import HomeButtomMenu from "../component/home/HomeButtomMenu";
+import HomeTopMenu from "../component/home/HomeTopMenu";
 
 const HomePage = () => {
    return (
       <>
-         <HomeButtomMenu />
+         <HomeTopMenu />
       </>
    );
 };
