@@ -1,7 +1,6 @@
 import { Image } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { switchReceiver } from "../../redux/actions";
-import { FC } from "react";
 
 type PersonProp = {
    person: {

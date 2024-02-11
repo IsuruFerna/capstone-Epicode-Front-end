@@ -57,3 +57,24 @@
 .fs-7 {
    font-size: 0.7rem;
 }
+
+.icon-primary {
+   fill: #848484;
+}
+
+.text-menu {
+   color: #848484;
+   display: flex;
+   flex-direction: column;
+}
+
+.primary-border {
+   border: 1px solid #848484;
+}
+
+.primary-underline {
+   margin-top: 0.3rem;
+   border: 2px solid #848484;
+   width: 90%;
+   border-radius: 3px;
+}
