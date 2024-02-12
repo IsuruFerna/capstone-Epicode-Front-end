@@ -3,6 +3,7 @@ import HomeTopMenu from "../component/home/HomeTopMenu";
 import HomeButtomMenu from "../component/home/HomeButtomMenu";
 import HomeFeed from "../component/home/HomeFeed";
 import { Col, Container, Row } from "react-bootstrap";
+import HomeLeftside from "../component/home/HomeLeftside";
 
 const HomePage = () => {
    return (
@@ -14,7 +15,7 @@ const HomePage = () => {
                   lg={3}
                   className="d-none d-sm-none d-md-block d-lg-block"
                >
-                  <p>left</p>
+                  <HomeLeftside />
                </Col>
 
                {/* mid  */}
