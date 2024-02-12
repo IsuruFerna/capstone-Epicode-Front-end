@@ -17,9 +17,9 @@ const ContentMedia = () => {
          </div>
          <div className="d-flex justify-contnet-between w-100 mt-1 primary-border-top pt-1">
             <div className="primary-border-top w-100 ms-3">
-               <label htmlFor="comment"></label>
+               <label htmlFor="comment-media"></label>
                <input
-                  id="comment"
+                  id="comment-media"
                   type="text"
                   placeholder="Comment"
                   className="comment w-100"

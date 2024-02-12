@@ -32,9 +32,8 @@ const HomePage = () => {
                   </div>
                </Col>
 
-               <Col lg={3} className="d-none d-lg-block">
-                  <p>right</p>
-               </Col>
+               {/* right side of the page */}
+               <Col lg={3} className="d-none d-lg-block"></Col>
             </Row>
          </Container>
       </>
