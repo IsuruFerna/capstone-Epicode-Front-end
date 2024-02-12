@@ -3,10 +3,10 @@ import ContentText from "./ContentText";
 
 const HomeFeed = () => {
    return (
-      <div className="mt-5 pt-4 px-1 mb-5 pb-5">
+      <div className="px-1 mb-5 pb-5">
          <ContentText />
          <ContentMedia />
-         <div className="invisible">""</div>
+         <div className="d-block d-ms-block d-md-none invisible">""</div>
       </div>
    );
 };

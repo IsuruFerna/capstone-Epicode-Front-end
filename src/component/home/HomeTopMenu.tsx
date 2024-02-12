@@ -33,7 +33,7 @@ const HomeTopMenu = () => {
    };
 
    return (
-      <div className="d-block d-sm-none d-flex justify-content-between pt-4 px-4 pb-3 primary-border fw-semibold bg-white">
+      <div className="d-flex justify-content-between pt-4 px-4 pb-3 primary-border fw-semibold bg-white">
          <div
             className="d-flex flex-column align-items-center"
             onClick={handleClick}

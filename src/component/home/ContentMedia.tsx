@@ -9,14 +9,14 @@ const ContentMedia = () => {
                Tom Hanks
             </h5>
             <div className="d-flex justify-content-center">
-               <Image src="https://placedog.net/400/400" />
+               <Image fluid src="https://placedog.net/400/400" />
             </div>
             <div className="position-absolute bottom-0 end-0 w-100 content-media-bottom-bg">
                <p className="m-0 p-0 lh-1 text-end fs-6 fw-light me-2">100k</p>
             </div>
          </div>
          <div className="d-flex justify-contnet-between w-100 mt-1 primary-border-top pt-1">
-            <div className="primary-border-top w-80 ms-3">
+            <div className="primary-border-top w-100 ms-3">
                <label htmlFor="comment"></label>
                <input
                   id="comment"
@@ -27,7 +27,7 @@ const ContentMedia = () => {
             </div>
             <div className="d-flex justify-content-around align-items-start ms-2 ">
                <Bookmark className="icon-primary-content" />
-               <Heart className="icon-primary-content fs-1" />
+               <Heart className="icon-primary-content" />
                <ChevronExpand className="icon-primary-content" />
             </div>
          </div>
