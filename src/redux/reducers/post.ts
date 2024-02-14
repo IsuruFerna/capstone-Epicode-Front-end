@@ -1,22 +1,59 @@
-import { FETCH_POSTS, FetchResponseType } from "../actions";
+import ActionType, { Action } from "../actions/action-types/action-types";
 
-export type PostReceiver = {
-   type: typeof FETCH_POSTS;
-   payload: FetchResponseType;
-};
-
-type PostAction = PostReceiver;
+interface PostState {
+   loading: boolean;
+   error: string | null;
+   data: {}[];
+   first: boolean | null;
+   last: boolean | null;
+   totalPages: number | null;
+   pageNumber: number | null;
+}
 
 const initialState = {
-   posts: [],
+   loading: false,
+   error: null,
+   data: [],
+   first: null,
+   last: null,
+   totalPages: null,
+   pageNumber: null,
 };
 
-const postReducer = (state = initialState, action: PostAction) => {
+const postReducer = (state: PostState = initialState, action: Action) => {
    switch (action.type) {
-      case FETCH_POSTS:
+      case ActionType.GET_POST_REQUEST:
+         return {
+            loading: true,
+            error: null,
+            data: [],
+            first: null,
+            last: null,
+            totalPages: null,
+            pageNumber: null,
+         };
+
+      case ActionType.GET_POST_SUCCESS:
          return {
             ...state,
-            posts: [...state.posts, action.payload.content],
+            data: [...state.data, ...action.payload.content],
+            first: action.payload.first,
+            last: action.payload.last,
+            totalPages: action.payload.totalPages,
+            pageNumber: action.payload.pageable.pageNumber,
+            loading: false,
+            error: null,
+         };
+
+      case ActionType.GET_POST_FAIL:
+         return {
+            loading: false,
+            error: action.payload,
+            data: null,
+            first: null,
+            last: null,
+            totalPages: null,
+            pageNumber: null,
          };
 
       default:
