@@ -24,7 +24,7 @@ export const getFeedAction = () => {
                "Content-type": "application/json",
                Authorization:
                   "Bearer " +
-                  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5ODI0ZmI1MC05YzdmLTQ5YzItYTliZC1jY2Y3YjY2MTA3NTIiLCJpYXQiOjE3MDc5MDMyNDYsImV4cCI6MTcwNzkxMzMyNn0.HdORxugKVtSRl2AC9QcXhHp_OOshC2J6vckrZXflV8U",
+                  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5ODI0ZmI1MC05YzdmLTQ5YzItYTliZC1jY2Y3YjY2MTA3NTIiLCJpYXQiOjE3MDc5MTcyNDEsImV4cCI6MTcwNzkyNzMyMX0.CuoIicgffjLHHGRxP_U5NNOmfbQmBfyONawZxBe4SCw",
             },
          });
 

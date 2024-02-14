@@ -3,18 +3,30 @@ import {
    CaretDown,
    CaretUp,
    ChevronExpand,
+   Dot,
 } from "react-bootstrap-icons";
+import { ContentItem } from "../../redux/actions/action-types/action-types";
 
-const ContentText = () => {
+interface PostProps {
+   post: ContentItem;
+}
+
+const ContentText = (props: PostProps) => {
    return (
       <div className="primary-border content-border-radious mt-2 p-3">
-         <h5 className="card-title">Tom Cruise</h5>
+         <div className="d-flex align-items-end">
+            <h5 className="card-title pe-1 mb-0">
+               {props.post.firstName + " " + props.post.lastName}
+            </h5>
+            <h5 className="fw-lighter text-secondary fs-6 mb-0">
+               {"@" + props.post.username}
+               <Dot />
+               {new Date(props.post.timeStamp).toLocaleDateString()}
+            </h5>
+         </div>
          <div className="d-flex justify-contnet-between">
             <div className="card-body primary-border-buttom pb-2">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat
-               tenetur molestiae ea! Accusamus dolorem molestias esse earum
-               consequatur doloribus eveniet, itaque nisi vitae? Earum numquam
-               quasi vero nisi unde repellat?
+               {props.post.content}
             </div>
             <div className="d-flex flex-column justify-content-around align-items-center ms-2">
                <Bookmark className="icon-primary-content" />

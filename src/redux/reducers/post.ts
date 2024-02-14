@@ -1,9 +1,12 @@
-import ActionType, { Action } from "../actions/action-types/action-types";
+import ActionType, {
+   Action,
+   ContentItem,
+} from "../actions/action-types/action-types";
 
-interface PostState {
+export interface PostState {
    loading: boolean;
    error: string | null;
-   data: {}[];
+   data: ContentItem[];
    first: boolean | null;
    last: boolean | null;
    totalPages: number | null;

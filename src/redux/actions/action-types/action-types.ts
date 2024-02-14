@@ -19,7 +19,16 @@ type Pageable = {
    unpaged: boolean;
 };
 
-type ContentItem = {};
+export type ContentItem = {
+   content: string | null;
+   media: string | null;
+   edited: boolean;
+   id: string;
+   timeStamp: string;
+   username: string;
+   firstName: string;
+   lastName: string;
+};
 
 export type FetchResponseType = {
    content: ContentItem[];
