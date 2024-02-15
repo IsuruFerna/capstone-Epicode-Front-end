@@ -32,7 +32,6 @@ export const getFeedAction = () => {
 
          if (response.ok) {
             let fetchedFeed = await response.json();
-            console.log("this is fetched data redux action: ", fetchedFeed);
 
             dispatch({
                type: ActionType.GET_POST_SUCCESS,

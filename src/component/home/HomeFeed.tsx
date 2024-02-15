@@ -6,7 +6,6 @@ import { getFeedAction } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
-import RegisterModal from "../login-register/RegisterModal";
 
 const HomeFeed = () => {
    // classical use case
@@ -17,9 +16,9 @@ const HomeFeed = () => {
    const dispatch = useAppDispatch();
    const posts = useAppSelector((state) => state.posts);
 
+   // fetch data using redux thunk
    useEffect(() => {
       dispatch(getFeedAction());
-      console.log("this is the store: ", posts);
    }, [dispatch]);
 
    return (
