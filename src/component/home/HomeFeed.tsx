@@ -6,6 +6,7 @@ import { getFeedAction } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
+import RegisterModal from "../login-register/RegisterModal";
 
 const HomeFeed = () => {
    // classical use case

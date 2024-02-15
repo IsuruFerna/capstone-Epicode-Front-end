@@ -1,11 +1,26 @@
-import React from "react";
 import HomeTopMenu from "../component/home/HomeTopMenu";
 import HomeButtomMenu from "../component/home/HomeButtomMenu";
 import HomeFeed from "../component/home/HomeFeed";
 import { Col, Container, Row } from "react-bootstrap";
 import HomeLeftside from "../component/home/HomeLeftside";
+import { useEffect } from "react";
+import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+   const { getItem } = useLocalStorage(TOKEN);
+   const navigate = useNavigate();
+
+   // checks the token
+   // if it's not sends to login page
+
+   // need to validate if there's already a token in localStorage
+   useEffect(() => {
+      if (!getItem()) {
+         navigate("/login");
+      }
+   }, []);
+
    return (
       <>
          <Container fluid>
