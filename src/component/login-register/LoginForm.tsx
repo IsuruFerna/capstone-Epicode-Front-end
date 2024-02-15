@@ -15,7 +15,7 @@ const LoginForm: React.FC<RegisterModelProps> = ({ show, setShow }) => {
    const handleShow = () => setShow(true);
 
    // set, get and remove token on localStorage
-   const { setItem, getItem, removeItem } = useLocalStorage(TOKEN);
+   const { setItem } = useLocalStorage(TOKEN);
 
    const navigate = useNavigate();
 

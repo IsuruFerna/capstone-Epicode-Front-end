@@ -19,8 +19,6 @@ type RegisterForm = {
 };
 
 const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
-   //  const [show, setShow] = useState(false);
-
    const handleClose = () => setShow(false);
    const handleShow = () => setShow(true);
 
@@ -29,7 +27,7 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
       lastName: "",
       username: "",
       email: "",
-      birthDay: "2001-01-01",
+      birthDay: "",
       password: "",
       passwordConfirm: "",
    });
@@ -42,9 +40,43 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
       });
    };
 
-   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       console.log("register form data: ", formData);
+
+      try {
+         const response = await fetch(
+            process.env.REACT_APP_BE_URL + "/auth/register",
+            {
+               method: "POST",
+               body: JSON.stringify(formData),
+               headers: {
+                  "Content-Type": "application/json",
+               },
+            }
+         );
+
+         if (response.ok) {
+            setFormData({
+               firstName: "",
+               lastName: "",
+               username: "",
+               email: "",
+               birthDay: "",
+               password: "",
+               passwordConfirm: "",
+            });
+
+            // sets value to hide registration modal
+            setShow(false);
+         } else {
+            throw new Error(
+               "there was a problem of registration: " + response.status
+            );
+         }
+      } catch (error) {
+         console.log("error", error);
+      }
    };
 
    return (
@@ -74,6 +106,7 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
                      <Form.Group as={Col} controlId="formGridFirstName">
                         <Form.Label>First Name</Form.Label>
                         <Form.Control
+                           required
                            name="firstName"
                            value={formData.firstName}
                            onChange={handleInputChange}
@@ -85,6 +118,7 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
                      <Form.Group as={Col} controlId="formGridLastName">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control
+                           required
                            name="lastName"
                            value={formData.lastName}
                            onChange={handleInputChange}
@@ -97,6 +131,7 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
                   <Form.Group className="mb-3" controlId="formGridUsername">
                      <Form.Label>Username</Form.Label>
                      <Form.Control
+                        required
                         name="username"
                         value={formData.username}
                         onChange={handleInputChange}
@@ -108,6 +143,7 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
                   <Form.Group className="mb-3" controlId="formGridEmail">
                      <Form.Label>Email</Form.Label>
                      <Form.Control
+                        required
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
@@ -119,6 +155,7 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
                   <Form.Group className="mb-3" controlId="formGridBirthday">
                      <Form.Label>Date of birth</Form.Label>
                      <Form.Control
+                        required
                         name="birthDay"
                         onChange={handleInputChange}
                         value={formData.birthDay}
@@ -130,6 +167,7 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
                   <Form.Group className="mb-3" controlId="formGridPassword">
                      <Form.Label>Password</Form.Label>
                      <Form.Control
+                        required
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
@@ -143,6 +181,7 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
                   >
                      <Form.Label>Confirm Password</Form.Label>
                      <Form.Control
+                        required
                         name="passwordConfirm"
                         value={formData.passwordConfirm}
                         onChange={handleInputChange}
@@ -152,9 +191,6 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
                   </Form.Group>
                </Modal.Body>
                <Modal.Footer>
-                  {/* <Button variant="outline-danger" onClick={handleClose}>
-                  Close
-               </Button> */}
                   <Button type="submit" variant="outline-secondary">
                      Sign up
                   </Button>
