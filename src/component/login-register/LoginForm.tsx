@@ -1,12 +1,93 @@
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
+import { useLocation, useNavigate } from "react-router-dom";
+
+type LoginType = {
+   email: string;
+   password: string;
+};
 
 const LoginForm = () => {
+   // set, get and remove token on localStorage
+   const { setItem, getItem, removeItem } = useLocalStorage(TOKEN);
+
+   const navigate = useNavigate();
+
+   const [credentials, setCredentials] = useState<LoginType>({
+      email: "",
+      password: "",
+   });
+
+   // appear a model for user registration
+   const handleSignUp = () => {
+      console.log("clicked on me");
+      removeItem();
+      console.log("local saved token: ", getItem());
+   };
+
+   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const target = event.target;
+      setCredentials({
+         ...credentials,
+         [target.name]: target.value,
+      });
+   };
+
+   // when login success
+   // save token in the localStorage
+   // navigate to home
+   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      try {
+         const response = await fetch(
+            process.env.REACT_APP_BE_URL + "/auth/login",
+            {
+               method: "POST",
+               body: JSON.stringify(credentials),
+               headers: {
+                  "Content-Type": "application/json",
+               },
+            }
+         );
+
+         if (response.ok) {
+            const data = await response.json();
+            const token = data.token;
+
+            // saves token
+            setItem(token);
+
+            setCredentials({
+               email: "",
+               password: "",
+            });
+
+            // navigate to home
+            navigate("/");
+         } else {
+            throw new Error("there was a problem of login");
+         }
+      } catch (error) {
+         console.log("error", error);
+      }
+   };
+
    return (
-      <Form className="text-secondary primary-border p-3 content-border-radious">
+      <Form
+         onSubmit={handleSubmit}
+         className="text-secondary primary-border p-3 content-border-radious"
+      >
          <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Control
+               onChange={handleInputChange}
+               value={credentials.email}
+               name="email"
+               type="email"
+               placeholder="Enter email"
+            />
             <Form.Text className="text-muted">
                We'll never share your email with anyone else.
             </Form.Text>
@@ -14,11 +95,18 @@ const LoginForm = () => {
 
          <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control
+               onChange={handleInputChange}
+               value={credentials.password}
+               name="password"
+               type="password"
+               placeholder="Password"
+            />
          </Form.Group>
          <div className="w-100 mt-4 d-flex justify-content-between align-items-end">
             <p className="text-secondary fs-7 lh-1 m-0 ps-1">
-               <span>Sign up</span>/ <span>Forgot Password</span>
+               <span onClick={handleSignUp}>Sign up</span>/{" "}
+               <span>Forgot Password</span>
             </p>
             <Button variant="outline-secondary" type="submit">
                Login
