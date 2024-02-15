@@ -1,0 +1,17 @@
+.main-title {
+   font-size: 6em;
+}
+
+/* mobile */
+@media screen and (max-width: 768px) {
+   .main-title {
+      font-size: 4.3em;
+   }
+}
+
+/* tab */
+@media screen and (min-width: 769px) and (max-width: 992px) {
+   .main-title {
+      font-size: 4em;
+   }
+}
