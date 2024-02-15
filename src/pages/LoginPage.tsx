@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LoginPage.css";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import LoginForm from "../component/login-register/LoginForm";
+import RegisterModal from "../component/login-register/RegisterModal";
 
 const LoginPage = () => {
+   const [show, setShow] = useState(false);
+
    return (
       <Container>
          <Row className="vh-100 d-flex align-content-center">
@@ -22,14 +25,8 @@ const LoginPage = () => {
                </div>
             </Col>
             <Col md={6} lg={5} className="pt-2">
-               <LoginForm />
-               <Button
-                  className="w-100 mt-3"
-                  variant="outline-secondary"
-                  type="submit"
-               >
-                  Sign up
-               </Button>
+               <LoginForm show={show} setShow={setShow} />
+               <RegisterModal show={show} setShow={setShow} />
             </Col>
          </Row>
       </Container>

@@ -2,30 +2,28 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { RegisterModelProps } from "./RegisterModal";
 
 type LoginType = {
    email: string;
    password: string;
 };
 
-const LoginForm = () => {
+const LoginForm: React.FC<RegisterModelProps> = ({ show, setShow }) => {
+   // appear a model for user registration
+   const handleShow = () => setShow(true);
+
    // set, get and remove token on localStorage
    const { setItem, getItem, removeItem } = useLocalStorage(TOKEN);
 
    const navigate = useNavigate();
 
+   // set email and password in order to POST fetch request
    const [credentials, setCredentials] = useState<LoginType>({
       email: "",
       password: "",
    });
-
-   // appear a model for user registration
-   const handleSignUp = () => {
-      console.log("clicked on me");
-      removeItem();
-      console.log("local saved token: ", getItem());
-   };
 
    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const target = event.target;
@@ -105,8 +103,10 @@ const LoginForm = () => {
          </Form.Group>
          <div className="w-100 mt-4 d-flex justify-content-between align-items-end">
             <p className="text-secondary fs-7 lh-1 m-0 ps-1">
-               <span onClick={handleSignUp}>Sign up</span>/{" "}
-               <span>Forgot Password</span>
+               <span className="pointer" onClick={handleShow}>
+                  Sign up
+               </span>
+               / <span>Forgot Password</span>
             </p>
             <Button variant="outline-secondary" type="submit">
                Login

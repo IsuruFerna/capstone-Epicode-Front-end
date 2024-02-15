@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
 import { ReduxReceiver } from "../../component/message/MsgReceiver";
 import ActionType, { Action } from "./action-types/action-types";
+import { TOKEN, useLocalStorage } from "../hooks/useLocalStorage";
 
 export const SWITCH_RECEIVER = "SWITCH_RECEIVER";
 export const FETCH_POSTS = "FETCH_POSTS";
@@ -19,12 +20,13 @@ export const getFeedAction = () => {
             type: ActionType.GET_POST_REQUEST,
          });
 
+         // obtains token from LocalStorage
+         const { getItem } = useLocalStorage(TOKEN);
+
          let response = await fetch(process.env.REACT_APP_BE_URL + "/posts", {
             headers: {
                "Content-type": "application/json",
-               Authorization:
-                  "Bearer " +
-                  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5ODI0ZmI1MC05YzdmLTQ5YzItYTliZC1jY2Y3YjY2MTA3NTIiLCJpYXQiOjE3MDc5ODg2MTEsImV4cCI6MTcwNzk5ODY5MX0.P-KS-8kJf5PM7yM0JtJSR0mxChCar0CYlmAvwOPFXUM",
+               Authorization: "Bearer " + getItem(),
             },
          });
 
