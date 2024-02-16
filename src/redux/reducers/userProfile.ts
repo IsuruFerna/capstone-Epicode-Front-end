@@ -9,14 +9,14 @@ interface UserProfileState extends FetchUserProfileType {
 }
 
 const initialState = {
-   id: null,
-   firstName: null,
-   lastName: null,
-   username: null,
-   email: null,
-   birthDay: null,
-   profilePicture: null,
-   role: null,
+   id: "",
+   firstName: "",
+   lastName: "",
+   username: "",
+   email: "",
+   birthDay: "",
+   profilePicture: "",
+   role: "",
    loading: false,
    error: null,
 };
@@ -28,14 +28,14 @@ const userProfileReducer = (
    switch (action.type) {
       case UserActionType.GET_LOGGED_PROFILE_REQUEST:
          return {
-            id: null,
-            firstName: null,
-            lastName: null,
-            username: null,
-            email: null,
-            birthDay: null,
-            profilePicture: null,
-            role: null,
+            id: "",
+            firstName: "",
+            lastName: "",
+            username: "",
+            email: "",
+            birthDay: "",
+            profilePicture: "",
+            role: "",
             loading: true,
             error: null,
          };
@@ -57,14 +57,14 @@ const userProfileReducer = (
 
       case UserActionType.GET_LOGGED_PROFILE_FAIL:
          return {
-            id: null,
-            firstName: null,
-            lastName: null,
-            username: null,
-            email: null,
-            birthDay: null,
-            profilePicture: null,
-            role: null,
+            id: "",
+            firstName: "",
+            lastName: "",
+            username: "",
+            email: "",
+            birthDay: "",
+            profilePicture: "",
+            role: "",
             loading: false,
             error: action.payload,
          };

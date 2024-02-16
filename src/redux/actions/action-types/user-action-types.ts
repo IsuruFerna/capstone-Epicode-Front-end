@@ -5,14 +5,14 @@ enum UserActionType {
 }
 
 export type FetchUserProfileType = {
-   id: string | null;
-   firstName: string | null;
-   lastName: string | null;
-   username: string | null;
-   email: string | null;
-   birthDay: string | null;
-   profilePicture: string | null;
-   role: string | null;
+   id: string;
+   firstName: string;
+   lastName: string;
+   username: string;
+   email: string;
+   birthDay: string;
+   profilePicture: string;
+   role: string;
 };
 
 interface GetUserProfileRequestAction {
