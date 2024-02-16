@@ -6,20 +6,31 @@ import HomeLeftside from "../component/home/HomeLeftside";
 import { useEffect } from "react";
 import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
+import { getLoggedUserAction } from "../redux/actions/user";
 
 const HomePage = () => {
    const { getItem } = useLocalStorage(TOKEN);
    const navigate = useNavigate();
-
-   // checks the token
-   // if it's not sends to login page
+   const dispatch = useAppDispatch();
+   const loggedUser = useAppSelector((state) => state.userProfile);
 
    // need to validate if there's already a token in localStorage
    useEffect(() => {
+      // checks the token
+      // if it's not sends to login page
       if (!getItem()) {
          navigate("/login");
       }
-   }, []);
+
+      // loads logged user data to redux store
+      dispatch(getLoggedUserAction());
+
+      // redirects to login page it there are errors
+      if (loggedUser.error) {
+         navigate("/login");
+      }
+   }, [dispatch]);
 
    return (
       <>

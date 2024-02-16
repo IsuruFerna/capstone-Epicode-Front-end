@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import messageReducer from "../reducers/message";
 import postReducer from "../reducers/post";
+import userProfileReducer from "../reducers/userProfile";
 
 const bigReducer = combineReducers({
    receiver: messageReducer,
    posts: postReducer,
+   userProfile: userProfileReducer,
 });
 
 const store = configureStore({

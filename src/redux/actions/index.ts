@@ -38,6 +38,7 @@ export const getFeedAction = () => {
                payload: fetchedFeed,
             });
          } else {
+            console.log(response.status);
             throw new Error("Retreaving feed error!");
          }
       } catch (error: any) {

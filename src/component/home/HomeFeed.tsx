@@ -6,6 +6,7 @@ import { getFeedAction } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
+import { useNavigate } from "react-router-dom";
 
 const HomeFeed = () => {
    // classical use case
@@ -15,10 +16,17 @@ const HomeFeed = () => {
    // type configured after inside the hooks
    const dispatch = useAppDispatch();
    const posts = useAppSelector((state) => state.posts);
+   const navigate = useNavigate();
 
    // fetch data using redux thunk
    useEffect(() => {
       dispatch(getFeedAction());
+
+      // if there are fetching issues redirects to login
+      // try to handle the exact status code(401 instead of all the errors!)
+      if (posts.error) {
+         navigate("/login");
+      }
    }, [dispatch]);
 
    return (
