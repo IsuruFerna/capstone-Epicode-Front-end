@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import UserActionType, {
    UserProfileAction,
-} from "./action-types/user-action-types";
+} from "./action-types/loggedUser-types";
 import { TOKEN, useLocalStorage } from "../hooks/useLocalStorage";
 
 export const getLoggedUserAction = () => {

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
-import ProfileTop from "../profile/ProfileTop";
+import ProfileTop from "../profile/ProfileTopOnHome";
 import {
    BoxArrowRight,
    ChatLeftTextFill,
@@ -9,20 +9,27 @@ import {
    PersonCircle,
    PlusCircleFill,
 } from "react-bootstrap-icons";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 const HomeLeftside = () => {
    const { removeItem } = useLocalStorage(TOKEN);
    const navigate = useNavigate();
+   const loggedUser = useAppSelector((state) => state.userProfile);
 
    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       const element = e.currentTarget as HTMLDivElement;
       const selected = element.children[1].id;
       console.log("this is clicked id: ", selected);
 
-      // removes token in the localStorage and redirects to login page
+      // based on click navigate to the page
       if (selected === "logout") {
+         // removes token in the localStorage and redirects to login page
          navigate("/login");
          removeItem();
+      } else if (selected === "home") {
+         navigate("/");
+      } else if (selected === "profile") {
+         navigate("/user/" + loggedUser.username);
       }
    };
 

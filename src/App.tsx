@@ -8,6 +8,7 @@ import TestMsgPage from "./pages/TestMsgPage";
 import TestMsgPage2 from "./pages/TestMsgPage2";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import UserProfilePage from "./pages/UserProfilePage";
 
 function App() {
    return (
@@ -18,6 +19,7 @@ function App() {
             <Route element={<TestMsgPage />} path="/test" />
             <Route element={<TestMsgPage2 />} path="/test2" />
             <Route element={<LoginPage />} path="/login" />
+            <Route element={<UserProfilePage />} path="/user/:elementId" />
          </Routes>
       </BrowserRouter>
    );

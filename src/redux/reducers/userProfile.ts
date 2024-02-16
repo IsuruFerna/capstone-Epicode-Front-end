@@ -1,7 +1,7 @@
 import UserActionType, {
    FetchUserProfileType,
    UserProfileAction,
-} from "../actions/action-types/user-action-types";
+} from "../actions/action-types/loggedUser-types";
 
 interface UserProfileState extends FetchUserProfileType {
    loading: boolean;

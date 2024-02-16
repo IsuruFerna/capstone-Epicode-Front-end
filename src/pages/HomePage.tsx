@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
-import { getLoggedUserAction } from "../redux/actions/user";
+import { getLoggedUserAction } from "../redux/actions/loggedUser";
 
 const HomePage = () => {
    const { getItem } = useLocalStorage(TOKEN);
@@ -30,6 +30,7 @@ const HomePage = () => {
       if (loggedUser.error) {
          navigate("/login");
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [dispatch]);
 
    return (

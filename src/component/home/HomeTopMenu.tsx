@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Fire, PeopleFill, RssFill } from "react-bootstrap-icons";
+import { useLocation } from "react-router-dom";
 
 type Selection = {
    feed: boolean;
