@@ -4,9 +4,27 @@ import HomeLeftside from "../component/home/HomeLeftside";
 import HomeFeed from "../component/home/HomeFeed";
 import HomeButtomMenu from "../component/home/HomeButtomMenu";
 import ProfileTopMenu from "../component/profile/ProfileTopMenu";
+import { useLocation } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks/hooks";
+import {
+   getSelectedUserDataAction,
+   getUserPostsAction,
+} from "../redux/actions/selectedUser-action";
+import ProfileFeed from "../component/profile/ProfileFeed";
 
 const UserProfilePage = () => {
-   useEffect(() => {}, []);
+   const location = useLocation();
+   const path = location.pathname;
+   const dispatch = useAppDispatch();
+
+   useEffect(() => {
+      // gets user name from the path parameter
+      const pathUserName = path.substring(6, path.length);
+
+      // fetches and store in redux store, selected user data and selected user posts
+      dispatch(getSelectedUserDataAction(pathUserName));
+      dispatch(getUserPostsAction(pathUserName));
+   }, [dispatch]);
    return (
       <>
          <Container fluid>
@@ -25,7 +43,7 @@ const UserProfilePage = () => {
                      <ProfileTopMenu />
                   </div>
                   <div className="h-75">
-                     <HomeFeed />
+                     <ProfileFeed />
                   </div>
                   {/* only visible in mobile */}
                   <div className="fixed-bottom">

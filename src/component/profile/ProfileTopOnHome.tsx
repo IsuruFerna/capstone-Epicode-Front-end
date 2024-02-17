@@ -6,6 +6,7 @@ const ProfileTopOnHome = () => {
    const loggedUser = useAppSelector((state) => state.userProfile);
    const navigate = useNavigate();
 
+   // when user clicks on a user name, navigates to the user profile
    const handleClickOnName = () => {
       navigate("/user/" + loggedUser.username);
    };

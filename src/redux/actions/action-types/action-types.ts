@@ -1,5 +1,3 @@
-import { SetSelectedUserAction } from "./selectedUser-types";
-
 enum ActionType {
    GET_POST_REQUEST = "GET_POST_REQUEST",
    GET_POST_SUCCESS = "GET_POST_SUCCESS",
@@ -32,7 +30,7 @@ export type ContentItem = {
    lastName: string;
 };
 
-export type FetchResponseType = {
+export type FetchResponsePostType = {
    content: ContentItem[];
    empty: boolean;
    first: boolean;
@@ -52,7 +50,7 @@ interface GetPostRequestAction {
 
 interface GetPostSuccessAction {
    type: ActionType.GET_POST_SUCCESS;
-   payload: FetchResponseType;
+   payload: FetchResponsePostType;
 }
 
 interface GetPostFailAction {
@@ -63,7 +61,6 @@ interface GetPostFailAction {
 export type Action =
    | GetPostFailAction
    | GetPostRequestAction
-   | GetPostSuccessAction
-   | SetSelectedUserAction;
+   | GetPostSuccessAction;
 
 export default ActionType;
