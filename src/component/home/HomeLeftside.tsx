@@ -11,12 +11,12 @@ import {
    GearFill,
    HouseFill,
    PersonCircle,
-   PlusCircleFill,
 } from "react-bootstrap-icons";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import ProfileTopOnHome from "../profile/ProfileTopOnHome";
 import { useEffect, useState } from "react";
 import ProfileTopOnProfile from "../profile/ProfileTopOnProfile";
+import NewPost from "../posts/NewPost";
 
 const HomeLeftside = () => {
    const { removeItem } = useLocalStorage(TOKEN);
@@ -87,15 +87,8 @@ const HomeLeftside = () => {
                   </h5>
                </Link>
 
-               <div
-                  onClick={handleClick}
-                  className="d-flex align-items-center gap-3 pointer"
-               >
-                  <PlusCircleFill className="icon-primary-buttom fs-4" />
-                  <h5 id="add" className="m-0 lh-1">
-                     Add
-                  </h5>
-               </div>
+               {/* add new post */}
+               <NewPost />
 
                <Link
                   className="d-flex align-items-center gap-3 menu-item-color"
