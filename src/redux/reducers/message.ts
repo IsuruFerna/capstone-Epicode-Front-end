@@ -1,5 +1,5 @@
 import { ReduxReceiver } from "../../component/message/MsgReceiver";
-import { SWITCH_RECEIVER } from "../actions";
+import { SWITCH_RECEIVER } from "../actions/posts";
 
 type SetReceiver = {
    type: typeof SWITCH_RECEIVER;

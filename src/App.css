@@ -157,3 +157,8 @@
 .pointer {
    cursor: pointer;
 }
+
+.post-user-img-size {
+   width: 40px;
+   height: 40px;
+}

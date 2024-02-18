@@ -1,3 +1,5 @@
+import { UpdatePostedPostInStore } from "./post-types";
+
 enum ActionType {
    GET_POST_REQUEST = "GET_POST_REQUEST",
    GET_POST_SUCCESS = "GET_POST_SUCCESS",
@@ -61,6 +63,7 @@ interface GetPostFailAction {
 export type Action =
    | GetPostFailAction
    | GetPostRequestAction
-   | GetPostSuccessAction;
+   | GetPostSuccessAction
+   | UpdatePostedPostInStore;
 
 export default ActionType;

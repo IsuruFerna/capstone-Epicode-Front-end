@@ -38,6 +38,7 @@ const LoginForm: React.FC<RegisterModelProps> = ({ show, setShow }) => {
    // navigate to home
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+      console.log("this is the root link: ", process.env.REACT_APP_BE_URL);
       try {
          const response = await fetch(
             process.env.REACT_APP_BE_URL + "/auth/login",
@@ -80,6 +81,7 @@ const LoginForm: React.FC<RegisterModelProps> = ({ show, setShow }) => {
          <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
+               autoFocus
                required
                onChange={handleInputChange}
                value={credentials.email}

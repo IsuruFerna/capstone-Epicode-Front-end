@@ -1,3 +1,4 @@
+import UserActionType from "../actions/action-types/loggedUser-types";
 import SelectedUserActionType, {
    ActionSelectedUser,
    SelectedUser,
@@ -57,7 +58,12 @@ const selectedUserReducer = (
          return {
             ...state,
             posts: {
-               data: [...state.posts.data, ...action.payload.content],
+               data: [
+                  ...state.posts.data,
+                  ...action.payload.content.filter(
+                     (item) => !state.posts.data.includes(item)
+                  ),
+               ],
                first: action.payload.first,
                last: action.payload.last,
                totalPages: action.payload.totalPages,

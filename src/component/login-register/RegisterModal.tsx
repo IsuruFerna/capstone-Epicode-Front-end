@@ -106,6 +106,7 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
                      <Form.Group as={Col} controlId="formGridFirstName">
                         <Form.Label>First Name</Form.Label>
                         <Form.Control
+                           autoFocus
                            required
                            name="firstName"
                            value={formData.firstName}

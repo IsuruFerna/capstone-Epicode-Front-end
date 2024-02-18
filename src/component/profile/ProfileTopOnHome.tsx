@@ -1,10 +1,13 @@
 import { Image } from "react-bootstrap";
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getLoggedUserAction } from "../../redux/actions/loggedUser";
 
 const ProfileTopOnHome = () => {
    const loggedUser = useAppSelector((state) => state.userProfile);
    const navigate = useNavigate();
+   const dispatch = useAppDispatch();
 
    // when user clicks on a user name, navigates to the user profile
    const handleClickOnName = () => {

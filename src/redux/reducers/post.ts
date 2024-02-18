@@ -2,6 +2,9 @@ import ActionType, {
    Action,
    ContentItem,
 } from "../actions/action-types/action-types";
+import PostActionType, {
+   UpdatePostedPostInStore,
+} from "../actions/action-types/post-types";
 
 export interface PostState {
    loading: boolean;
@@ -39,7 +42,12 @@ const postReducer = (state: PostState = initialState, action: Action) => {
       case ActionType.GET_POST_SUCCESS:
          return {
             ...state,
-            data: [...state.data, ...action.payload.content],
+            data: [
+               ...state.data,
+               ...action.payload.content.filter(
+                  (item) => !state.data.includes(item)
+               ),
+            ],
             first: action.payload.first,
             last: action.payload.last,
             totalPages: action.payload.totalPages,
@@ -57,6 +65,12 @@ const postReducer = (state: PostState = initialState, action: Action) => {
             last: null,
             totalPages: null,
             pageNumber: null,
+         };
+
+      case PostActionType.UPDATE_POSTED_POST_IN_STORE:
+         return {
+            ...state,
+            data: [action.payload, ...state.data],
          };
 
       default:

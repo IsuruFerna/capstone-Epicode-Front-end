@@ -33,10 +33,10 @@ const HomeLeftside = () => {
 
    useEffect(() => {
       // handles which component to render based on logged user and clicked userName
-      if (pathUserName === "" || pathUserName !== loggedUser.username) {
-         setIsLoggedUser(false);
-      } else {
+      if (pathUserName === "" || pathUserName === loggedUser.username) {
          setIsLoggedUser(true);
+      } else {
+         setIsLoggedUser(false);
       }
    }, [pathUserName, loggedUser.username]);
 

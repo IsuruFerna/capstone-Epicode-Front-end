@@ -1,7 +1,8 @@
 import { Dispatch } from "react";
 import { ReduxReceiver } from "../../component/message/MsgReceiver";
-import ActionType, { Action } from "./action-types/action-types";
+import ActionType, { Action, ContentItem } from "./action-types/action-types";
 import { TOKEN, useLocalStorage } from "../hooks/useLocalStorage";
+import PostActionType from "./action-types/post-types";
 
 export const SWITCH_RECEIVER = "SWITCH_RECEIVER";
 export const FETCH_POSTS = "FETCH_POSTS";
@@ -10,6 +11,13 @@ export const switchReceiver = (reciever: ReduxReceiver) => {
    return {
       type: SWITCH_RECEIVER,
       payload: reciever,
+   };
+};
+
+export const updatePostedPostInStateAction = (post: ContentItem) => {
+   return {
+      type: PostActionType.UPDATE_POSTED_POST_IN_STORE,
+      payload: post,
    };
 };
 

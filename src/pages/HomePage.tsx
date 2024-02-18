@@ -5,15 +5,17 @@ import { Col, Container, Row } from "react-bootstrap";
 import HomeLeftside from "../component/home/HomeLeftside";
 import { useEffect } from "react";
 import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import { getLoggedUserAction } from "../redux/actions/loggedUser";
-import { getFeedAction } from "../redux/actions";
+import { getFeedAction } from "../redux/actions/posts";
 
 const HomePage = () => {
    const { getItem } = useLocalStorage(TOKEN);
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
+   const location = useLocation();
+   const path = location.pathname;
 
    const loggedUser = useAppSelector((state) => state.userProfile);
    const posts = useAppSelector((state) => state.posts);
@@ -36,9 +38,7 @@ const HomePage = () => {
       if (loggedUser.error !== null || posts.error !== null) {
          navigate("/login");
       }
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+   }, [dispatch, loggedUser.error, posts.error, path]);
 
    return (
       <>
