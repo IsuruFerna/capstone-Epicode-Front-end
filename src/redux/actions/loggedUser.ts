@@ -39,7 +39,7 @@ export const getLoggedUserAction = () => {
                lastName: userData.lastName,
                id: userData.id,
                profilePicture: userData.profilePicture,
-               userName: userData.userData,
+               username: userData.username,
             };
 
             saveUser(saveUserData);

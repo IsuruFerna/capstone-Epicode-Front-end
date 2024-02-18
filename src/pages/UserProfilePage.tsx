@@ -23,8 +23,8 @@ const UserProfilePage = () => {
       // fetches and store in redux store, selected user data and selected user posts
       dispatch(getSelectedUserDataAction(pathUserName));
       dispatch(getUserPostsAction(pathUserName));
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [dispatch]);
+   }, [dispatch, path]);
+
    return (
       <>
          <Container fluid>

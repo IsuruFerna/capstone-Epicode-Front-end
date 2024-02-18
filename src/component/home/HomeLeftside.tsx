@@ -17,7 +17,7 @@ import { useAppSelector } from "../../redux/hooks/hooks";
 
 const HomeLeftside = () => {
    const { removeItem } = useLocalStorage(TOKEN);
-   const { removeItem: removeUser } = useLocalStorage(USER);
+   const { removeItem: removeUser, getItem: getUser } = useLocalStorage(USER);
    const navigate = useNavigate();
    const loggedUser = useAppSelector((state) => state.userProfile);
 
@@ -60,7 +60,7 @@ const HomeLeftside = () => {
                </Link>
                <Link
                   className="d-flex align-items-center gap-3 menu-item-color"
-                  to={"/user/" + loggedUser.username}
+                  to={"/user/" + getUser()?.username}
                >
                   <PersonCircle className="icon-primary-buttom fs-4" />
                   <h5 id="profile" className="m-0 lh-1">
