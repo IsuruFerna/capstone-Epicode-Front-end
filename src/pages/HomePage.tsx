@@ -8,12 +8,16 @@ import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import { getLoggedUserAction } from "../redux/actions/loggedUser";
+import { getFeedAction } from "../redux/actions";
 
 const HomePage = () => {
    const { getItem } = useLocalStorage(TOKEN);
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
-   const loggedUser = useAppSelector((state) => state.userProfile);
+   const reduxStorState = useAppSelector((state) => state);
+
+   // const loggedUser = useAppSelector((state) => state.userProfile);
+   // const posts = useAppSelector((state) => state.posts);
 
    // need to validate if there's already a token in localStorage
    useEffect(() => {
@@ -26,12 +30,19 @@ const HomePage = () => {
       // loads logged user data to redux store
       dispatch(getLoggedUserAction());
 
-      // redirects to login page it there are errors
-      if (loggedUser.error) {
+      // loads home feed
+      dispatch(getFeedAction());
+
+      // redirects to login page if there's any error getting data
+      if (
+         reduxStorState.userProfile.error !== null ||
+         reduxStorState.posts.error !== null
+      ) {
          navigate("/login");
       }
+
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [dispatch]);
+   }, []);
 
    return (
       <>

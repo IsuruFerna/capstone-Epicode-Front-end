@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import HomeLeftside from "../component/home/HomeLeftside";
-import HomeFeed from "../component/home/HomeFeed";
 import HomeButtomMenu from "../component/home/HomeButtomMenu";
 import ProfileTopMenu from "../component/profile/ProfileTopMenu";
 import { useLocation } from "react-router-dom";
@@ -24,6 +23,7 @@ const UserProfilePage = () => {
       // fetches and store in redux store, selected user data and selected user posts
       dispatch(getSelectedUserDataAction(pathUserName));
       dispatch(getUserPostsAction(pathUserName));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [dispatch]);
    return (
       <>

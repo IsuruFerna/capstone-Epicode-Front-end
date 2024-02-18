@@ -1,7 +1,6 @@
 import { useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
-import ContentText from "../home/ContentText";
 import ContentMedia from "../home/ContentMedia";
 import PostText from "../posts/PostProfileText";
 

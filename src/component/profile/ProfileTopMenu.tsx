@@ -1,6 +1,3 @@
-import { useEffect } from "react";
-
-import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks/hooks";
 
 const ProfileTopMenu = () => {

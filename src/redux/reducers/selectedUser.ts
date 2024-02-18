@@ -1,4 +1,3 @@
-import ActionType, { Action } from "../actions/action-types/action-types";
 import SelectedUserActionType, {
    ActionSelectedUser,
    SelectedUser,
