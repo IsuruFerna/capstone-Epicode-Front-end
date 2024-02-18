@@ -1,17 +1,12 @@
-import ContentMedia from "./ContentMedia";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
-import PostFeedText from "../posts/PostFeedText";
+import ContentMedia from "../home/ContentMedia";
+import PostText from "../posts/PostProfileText";
 
-const HomeFeed = () => {
-   // classical use case
-   // const dispatch: Dispatch<any> = useDispatch();
-   // const posts = useSelector((state: any) => state.posts);
-
-   // type configured after inside the hooks
-   // const dispatch = useAppDispatch();
-   const posts = useAppSelector((state) => state.posts);
+const ProfileFeed = () => {
+   // gets selected user posts
+   const posts = useAppSelector((state) => state.selectedUser.posts);
 
    return (
       <div className="px-1 mb-5 pb-5">
@@ -21,7 +16,7 @@ const HomeFeed = () => {
             posts.data &&
             posts.data.map((post: ContentItem) => {
                return post.content ? (
-                  <PostFeedText key={post.id} post={post} />
+                  <PostText key={post.id} post={post} />
                ) : (
                   <ContentMedia />
                );
@@ -34,4 +29,4 @@ const HomeFeed = () => {
    );
 };
 
-export default HomeFeed;
+export default ProfileFeed;

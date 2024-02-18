@@ -30,7 +30,7 @@ export type ContentItem = {
    lastName: string;
 };
 
-export type FetchResponseType = {
+export type FetchResponsePostType = {
    content: ContentItem[];
    empty: boolean;
    first: boolean;
@@ -50,7 +50,7 @@ interface GetPostRequestAction {
 
 interface GetPostSuccessAction {
    type: ActionType.GET_POST_SUCCESS;
-   payload: FetchResponseType;
+   payload: FetchResponsePostType;
 }
 
 interface GetPostFailAction {

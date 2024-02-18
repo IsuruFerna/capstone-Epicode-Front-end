@@ -6,19 +6,25 @@ import {
    Dot,
 } from "react-bootstrap-icons";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
+import { Link } from "react-router-dom";
 
 interface PostProps {
    post: ContentItem;
 }
 
-const ContentText = (props: PostProps) => {
+const PostFeedText = (props: PostProps) => {
    return (
       <div className="primary-border content-border-radious mt-2 p-3">
          <div className="d-flex align-items-end">
-            <h5 className="card-title pe-1 mb-0">
-               {props.post.firstName + " " + props.post.lastName}
-            </h5>
-            <h5 className="fw-lighter text-secondary fs-6 mb-0">
+            <Link
+               className="link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               to={"/user/" + props.post.username}
+            >
+               <h5 className="card-title pe-1 mb-0">
+                  {props.post.firstName + " " + props.post.lastName}
+               </h5>
+            </Link>
+            <h5 className="fw-lighter text-secondary fs-6 mb-0 lh-base">
                {"@" + props.post.username}
                <Dot />
                {new Date(props.post.timeStamp).toLocaleDateString()}
@@ -47,4 +53,4 @@ const ContentText = (props: PostProps) => {
    );
 };
 
-export default ContentText;
+export default PostFeedText;

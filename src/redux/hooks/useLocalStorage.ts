@@ -1,4 +1,5 @@
 export const TOKEN = "tokenNetwork";
+export const USER = "userNetwork";
 
 export const useLocalStorage = (key: string) => {
    const setItem = (value: unknown) => {

@@ -6,19 +6,38 @@ import HomeLeftside from "../component/home/HomeLeftside";
 import { useEffect } from "react";
 import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
+import { getLoggedUserAction } from "../redux/actions/loggedUser";
+import { getFeedAction } from "../redux/actions";
 
 const HomePage = () => {
    const { getItem } = useLocalStorage(TOKEN);
    const navigate = useNavigate();
+   const dispatch = useAppDispatch();
 
-   // checks the token
-   // if it's not sends to login page
+   const loggedUser = useAppSelector((state) => state.userProfile);
+   const posts = useAppSelector((state) => state.posts);
 
    // need to validate if there's already a token in localStorage
    useEffect(() => {
+      // checks the token
+      // if it's not sends to login page
       if (!getItem()) {
          navigate("/login");
       }
+
+      // loads logged user data to redux store
+      dispatch(getLoggedUserAction());
+
+      // loads home feed
+      dispatch(getFeedAction());
+
+      // redirects to login page if there's any error getting data
+      if (loggedUser.error !== null || posts.error !== null) {
+         navigate("/login");
+      }
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    return (
