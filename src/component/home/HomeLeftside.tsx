@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
    TOKEN,
    USER,
    useLocalStorage,
 } from "../../redux/hooks/useLocalStorage";
-import ProfileTop from "../profile/ProfileTopOnHome";
+
 import {
    BoxArrowRight,
    ChatLeftTextFill,
@@ -14,12 +14,31 @@ import {
    PlusCircleFill,
 } from "react-bootstrap-icons";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import ProfileTopOnHome from "../profile/ProfileTopOnHome";
+import { useEffect, useState } from "react";
+import ProfileTopOnProfile from "../profile/ProfileTopOnProfile";
 
 const HomeLeftside = () => {
    const { removeItem } = useLocalStorage(TOKEN);
    const { removeItem: removeUser, getItem: getUser } = useLocalStorage(USER);
    const navigate = useNavigate();
    const loggedUser = useAppSelector((state) => state.userProfile);
+
+   // gets user name from the path parameter
+   const location = useLocation();
+   const path = location.pathname;
+   const pathUserName = path.substring(6, path.length);
+
+   const [isLoggedUser, setIsLoggedUser] = useState(true);
+
+   useEffect(() => {
+      // handles which component to render based on logged user and clicked userName
+      if (pathUserName === "" || pathUserName !== loggedUser.username) {
+         setIsLoggedUser(false);
+      } else {
+         setIsLoggedUser(true);
+      }
+   }, [pathUserName, loggedUser.username]);
 
    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       const element = e.currentTarget as HTMLDivElement;
@@ -45,7 +64,7 @@ const HomeLeftside = () => {
       <>
          <div className="vh-100">
             <div className="sticky-top">
-               <ProfileTop />
+               {isLoggedUser ? <ProfileTopOnHome /> : <ProfileTopOnProfile />}
             </div>
 
             <div className="d-flex flex-column menu-item-color gap-3 bottom-0 start-0 mb-5 ms-4 fixed-bottom w-25">
