@@ -1,5 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
+import { Link, useNavigate } from "react-router-dom";
+import {
+   TOKEN,
+   USER,
+   useLocalStorage,
+} from "../../redux/hooks/useLocalStorage";
 import ProfileTop from "../profile/ProfileTopOnHome";
 import {
    BoxArrowRight,
@@ -13,6 +17,7 @@ import { useAppSelector } from "../../redux/hooks/hooks";
 
 const HomeLeftside = () => {
    const { removeItem } = useLocalStorage(TOKEN);
+   const { removeItem: removeUser } = useLocalStorage(USER);
    const navigate = useNavigate();
    const loggedUser = useAppSelector((state) => state.userProfile);
 
@@ -23,14 +28,17 @@ const HomeLeftside = () => {
 
       // based on click navigate to the page
       if (selected === "logout") {
-         // removes token in the localStorage and redirects to login page
+         // removes token and user data in the localStorage and redirects to login page
          navigate("/login");
          removeItem();
-      } else if (selected === "home") {
-         navigate("/");
-      } else if (selected === "profile") {
-         navigate("/user/" + loggedUser.username);
+         removeUser();
       }
+
+      // else if (selected === "home") {
+      //    navigate("/");
+      // } else if (selected === "profile") {
+      //    navigate("/user/" + loggedUser.username);
+      // }
    };
 
    return (
@@ -41,24 +49,25 @@ const HomeLeftside = () => {
             </div>
 
             <div className="d-flex flex-column menu-item-color gap-3 bottom-0 start-0 mb-5 ms-4 fixed-bottom w-25">
-               <div
-                  onClick={handleClick}
-                  className="d-flex align-items-center gap-3 pointer"
+               <Link
+                  className="d-flex align-items-center gap-3 menu-item-color"
+                  to="/"
                >
                   <HouseFill className="icon-primary-buttom fs-4" />
                   <h5 id="home" className="m-0 lh-1">
                      Home
                   </h5>
-               </div>
-               <div
-                  onClick={handleClick}
-                  className="d-flex align-items-center gap-3 pointer"
+               </Link>
+               <Link
+                  className="d-flex align-items-center gap-3 menu-item-color"
+                  to={"/user/" + loggedUser.username}
                >
                   <PersonCircle className="icon-primary-buttom fs-4" />
                   <h5 id="profile" className="m-0 lh-1">
                      Profile
                   </h5>
-               </div>
+               </Link>
+
                <div
                   onClick={handleClick}
                   className="d-flex align-items-center gap-3 pointer"
@@ -68,15 +77,17 @@ const HomeLeftside = () => {
                      Add
                   </h5>
                </div>
-               <div
-                  onClick={handleClick}
-                  className="d-flex align-items-center gap-3 pointer"
+
+               <Link
+                  className="d-flex align-items-center gap-3 menu-item-color"
+                  to={"/message"}
                >
                   <ChatLeftTextFill className="icon-primary-buttom fs-4" />
                   <h5 id="message" className="m-0 lh-1">
                      Message
                   </h5>
-               </div>
+               </Link>
+
                <div
                   onClick={handleClick}
                   className="d-flex align-items-center gap-3 pointer"

@@ -14,10 +14,9 @@ const HomePage = () => {
    const { getItem } = useLocalStorage(TOKEN);
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
-   const reduxStorState = useAppSelector((state) => state);
 
-   // const loggedUser = useAppSelector((state) => state.userProfile);
-   // const posts = useAppSelector((state) => state.posts);
+   const loggedUser = useAppSelector((state) => state.userProfile);
+   const posts = useAppSelector((state) => state.posts);
 
    // need to validate if there's already a token in localStorage
    useEffect(() => {
@@ -34,10 +33,7 @@ const HomePage = () => {
       dispatch(getFeedAction());
 
       // redirects to login page if there's any error getting data
-      if (
-         reduxStorState.userProfile.error !== null ||
-         reduxStorState.posts.error !== null
-      ) {
+      if (loggedUser.error !== null || posts.error !== null) {
          navigate("/login");
       }
 
