@@ -45,7 +45,7 @@ const postReducer = (state: PostState = initialState, action: Action) => {
             data: [
                ...state.data,
                ...action.payload.content.filter(
-                  (item) => !state.data.includes(item)
+                  (item) => !state.data.some((post) => post.id === item.id)
                ),
             ],
             first: action.payload.first,

@@ -18,6 +18,7 @@ const UserProfilePage = () => {
    const dispatch = useAppDispatch();
 
    const loggedUser = useAppSelector((state) => state.userProfile);
+   const selectedUser = useAppSelector((state) => state.selectedUser);
 
    useEffect(() => {
       // gets user name from the path parameter
