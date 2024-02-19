@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PlusCircleFill } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { Form, Image } from "react-bootstrap";
-import {
-   TOKEN,
-   USER,
-   useLocalStorage,
-} from "../../redux/hooks/useLocalStorage";
+import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { updatePostedPostInStateAction } from "../../redux/actions/posts";
 
@@ -41,7 +37,6 @@ const NewPost = () => {
 
    // gets localStorage saved data
    const { getItem: getToken } = useLocalStorage(TOKEN);
-   const { getItem: getUser } = useLocalStorage(USER);
 
    const dispatch = useAppDispatch();
    const loggedUser = useAppSelector((state) => state.userProfile);
@@ -178,12 +173,12 @@ const NewPost = () => {
                   <Modal.Title>
                      <div className="d-flex gap-2 align-items-center">
                         <Image
-                           src={getUser().profilePicture}
+                           src={loggedUser.profilePicture}
                            className="rounded-circle post-user-img-size"
                         />
                         <div>
                            <h5 className="m-0 lh-1">
-                              {getUser().firstName + " " + getUser().lastName}
+                              {loggedUser.firstName + " " + loggedUser.lastName}
                            </h5>
                         </div>
                      </div>
