@@ -15,7 +15,7 @@ export interface NewPostProps {
 
 type SendingPostType = {
    content: string;
-   media: File | null;
+   media: null;
 };
 
 const NewPost = () => {
@@ -25,8 +25,15 @@ const NewPost = () => {
       media: null,
    });
 
-   const handleClose = () => setShow(false);
+   // handles close and post buttons
    const handleShow = () => setShow(true);
+   const handleClose = () => {
+      setShow(false);
+      setFormData({
+         content: "",
+         media: null,
+      });
+   };
 
    const { getItem: getToken } = useLocalStorage(TOKEN);
 
@@ -37,66 +44,30 @@ const NewPost = () => {
       // handles media input and text input
       const target = event.target as HTMLInputElement;
       let value: File | null | string;
+
       if (target.name === "media") {
          value = target.files ? target.files[0] : null;
       } else {
          value = target.value;
       }
+
+      // sets changed value
       setFormData({
          ...formData,
          [target.name]: value,
       });
-
-      console.log("this is form data: ", formData);
    };
 
-   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      const postData = new FormData();
-
-      if (formData.media) {
-         console.log("this contains media: ", formData);
-         postData.append("media", formData.media);
-
-         // upload image
-         try {
-            const mediaResponse = await fetch(
-               process.env.REACT_APP_BE_URL + "/posts/media",
-               {
-                  method: "POST",
-                  body: postData,
-                  headers: {
-                     Authorization: "Bearer " + getToken(),
-                  },
-               }
-            );
-
-            if (mediaResponse.ok) {
-               const dataMedia = await mediaResponse.json();
-               console.log(
-                  "this is the posted media link: ",
-                  dataMedia.imageUrl
-               );
-
-               // sets media link in formData
-               setFormData({
-                  ...formData,
-                  media: dataMedia.imageUrl,
-               });
-            }
-         } catch (error) {
-            console.log(error);
-         }
-      }
-
+   // fetches content(text) post request
+   const postContent = async (formData: SendingPostType) => {
       // posts content(text)
       try {
          const response = await fetch(process.env.REACT_APP_BE_URL + "/posts", {
             method: "POST",
             body: JSON.stringify(formData),
             headers: {
-               "Content-Type": "application/json",
                Authorization: "Bearer " + getToken(),
+               "Content-Type": "application/json",
             },
          });
 
@@ -114,14 +85,62 @@ const NewPost = () => {
                lastName: loggedUser.lastName,
             };
 
+            // updates home feed when posted
             dispatch(updatePostedPostInStateAction(storePost));
-
-            // closes the post modal
-            setShow(false);
          }
       } catch (error) {
          console.log(error);
       }
+   };
+
+   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      if (formData.media) {
+         // prepairs media to be posted
+         const postData = new FormData();
+         postData.append("media", formData.media);
+
+         // upload image
+         try {
+            const mediaResponse = await fetch(
+               process.env.REACT_APP_BE_URL + "/posts/media",
+               {
+                  method: "POST",
+                  body: postData,
+                  headers: {
+                     Authorization: "Bearer " + getToken(),
+                  },
+               }
+            );
+
+            if (mediaResponse.ok) {
+               const dataMedia = await mediaResponse.json();
+
+               // sets media link in formData
+               const updatedData = {
+                  ...formData,
+                  media: dataMedia.imageUrl,
+               };
+
+               // saves as a normal post wheather the post contains text or not
+               postContent(updatedData);
+            }
+         } catch (error) {
+            console.log(error);
+         }
+      } else {
+         postContent(formData);
+      }
+
+      // after posted set values to empty and null
+      setFormData({
+         content: "",
+         media: null,
+      });
+
+      // closes the post modal
+      setShow(false);
    };
 
    return (
@@ -166,7 +185,6 @@ const NewPost = () => {
                      className="mb-3"
                      controlId="exampleForm.ControlTextarea1"
                   >
-                     {/* <Form.Label>Example textarea</Form.Label> */}
                      <Form.Control
                         autoFocus
                         name="content"
@@ -191,7 +209,7 @@ const NewPost = () => {
                      Close
                   </Button>
                   <Button variant="primary" type="submit">
-                     Understood
+                     Post
                   </Button>
                </Modal.Footer>
             </Form>
