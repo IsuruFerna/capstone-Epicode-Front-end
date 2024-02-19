@@ -121,6 +121,10 @@
 .content-border-radious {
    border-radius: 10px;
 }
+.content-border-radious-top {
+   border-top-left-radius: 8px;
+   border-top-right-radius: 8px;
+}
 
 .primary-underline {
    margin-top: 0.3rem;

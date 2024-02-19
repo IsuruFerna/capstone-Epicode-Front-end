@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusCircleFill } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { Form, Image } from "react-bootstrap";
-import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
+import {
+   TOKEN,
+   USER,
+   useLocalStorage,
+} from "../../redux/hooks/useLocalStorage";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { updatePostedPostInStateAction } from "../../redux/actions/posts";
 
@@ -35,7 +39,9 @@ const NewPost = () => {
       });
    };
 
+   // gets localStorage saved data
    const { getItem: getToken } = useLocalStorage(TOKEN);
+   const { getItem: getUser } = useLocalStorage(USER);
 
    const dispatch = useAppDispatch();
    const loggedUser = useAppSelector((state) => state.userProfile);
@@ -117,10 +123,13 @@ const NewPost = () => {
             if (mediaResponse.ok) {
                const dataMedia = await mediaResponse.json();
 
+               console.log("this is the post response: ", dataMedia);
+
                // sets media link in formData
                const updatedData = {
                   ...formData,
                   media: dataMedia.imageUrl,
+                  postId: dataMedia.id,
                };
 
                // saves as a normal post wheather the post contains text or not
@@ -169,12 +178,12 @@ const NewPost = () => {
                   <Modal.Title>
                      <div className="d-flex gap-2 align-items-center">
                         <Image
-                           src={loggedUser.profilePicture}
+                           src={getUser().profilePicture}
                            className="rounded-circle post-user-img-size"
                         />
                         <div>
                            <h5 className="m-0 lh-1">
-                              {loggedUser.firstName + " " + loggedUser.lastName}
+                              {getUser().firstName + " " + getUser().lastName}
                            </h5>
                         </div>
                      </div>

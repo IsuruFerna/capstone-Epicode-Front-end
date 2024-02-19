@@ -1,8 +1,8 @@
 import { useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
-import ContentMedia from "../home/ContentMedia";
-import PostText from "../posts/PostProfileText";
+import PostMediaProfile from "../posts/PostMediaProfile";
+import PostProfileText from "../posts/PostTextProfile";
 
 const ProfileFeed = () => {
    // gets selected user posts
@@ -15,10 +15,10 @@ const ProfileFeed = () => {
          ) : (
             posts.data &&
             posts.data.map((post: ContentItem) => {
-               return post.content ? (
-                  <PostText key={post.id} post={post} />
+               return post.media ? (
+                  <PostMediaProfile key={post.id} post={post} />
                ) : (
-                  <ContentMedia />
+                  <PostProfileText key={post.id} post={post} />
                );
             })
          )}

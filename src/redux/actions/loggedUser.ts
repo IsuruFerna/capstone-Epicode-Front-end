@@ -2,7 +2,12 @@ import { Dispatch } from "@reduxjs/toolkit";
 import UserActionType, {
    UserProfileAction,
 } from "./action-types/loggedUser-types";
-import { TOKEN, USER, useLocalStorage } from "../hooks/useLocalStorage";
+import {
+   SaveUserType,
+   TOKEN,
+   USER,
+   useLocalStorage,
+} from "../hooks/useLocalStorage";
 
 export const getLoggedUserAction = () => {
    return async (dispatch: Dispatch<UserProfileAction>) => {
@@ -34,7 +39,7 @@ export const getLoggedUserAction = () => {
             });
 
             // save user data into localStorage
-            const saveUserData = {
+            const saveUserData: SaveUserType = {
                firstName: userData.firstName,
                lastName: userData.lastName,
                id: userData.id,

@@ -1,6 +1,14 @@
 export const TOKEN = "tokenNetwork";
 export const USER = "userNetwork";
 
+export type SaveUserType = {
+   firstName: string;
+   lastName: string;
+   id: string;
+   profilePicture: string;
+   username: string;
+};
+
 export const useLocalStorage = (key: string) => {
    const setItem = (value: unknown) => {
       try {
