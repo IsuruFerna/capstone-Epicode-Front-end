@@ -23,7 +23,8 @@ const HomeFeed = () => {
                return post.content ? (
                   <PostFeedText key={post.id} post={post} />
                ) : (
-                  <ContentMedia />
+                  <ContentMedia key={post.id} />
+                  // <h1>hola</h1>
                );
             })
          )}
