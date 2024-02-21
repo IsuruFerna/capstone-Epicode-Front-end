@@ -1,4 +1,3 @@
-import UserActionType from "../actions/action-types/loggedUser-types";
 import SelectedUserActionType, {
    ActionSelectedUser,
    SelectedUser,
@@ -61,7 +60,8 @@ const selectedUserReducer = (
                data: [
                   ...state.posts.data,
                   ...action.payload.content.filter(
-                     (item) => !state.posts.data.includes(item)
+                     (item) =>
+                        !state.posts.data.some((post) => post.id === item.id)
                   ),
                ],
                first: action.payload.first,
@@ -123,6 +123,20 @@ const selectedUserReducer = (
                error: action.payload,
             },
          };
+
+      // case PostActionType.UPDATE_POSTED_POST_IN_STORE:
+      //    return {
+      //       ...state,
+      //       posts: {
+      //          ...state.posts,
+      //          data: [
+      //             action.payload,
+      //             ...state.posts.data.filter(
+      //                (item) => item.id !== action.payload.id
+      //             ),
+      //          ],
+      //       },
+      //    };
 
       default:
          return state;

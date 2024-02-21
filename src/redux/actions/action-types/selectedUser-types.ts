@@ -1,4 +1,5 @@
 import { FetchResponsePostType } from "./action-types";
+import { UpdatePostedPostInStore } from "./post-types";
 
 enum SelectedUserActionType {
    GET_SELECTED_USER_REQUEST = "GET_SELECTED_USER_REQUEST",
@@ -59,6 +60,7 @@ export type ActionSelectedUser =
    | GetSelectedUserSuccessAction
    | GetSelectedUserPostFailAction
    | GetSelectedUserPostRequestAction
-   | GetSelectedUserPostSuccessAction;
+   | GetSelectedUserPostSuccessAction
+   | UpdatePostedPostInStore;
 
 export default SelectedUserActionType;

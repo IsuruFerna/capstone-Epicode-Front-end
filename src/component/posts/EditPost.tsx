@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PlusCircleFill } from "react-bootstrap-icons";
+import { PencilSquare, Trash3Fill } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
@@ -7,6 +7,7 @@ import { Form, Image } from "react-bootstrap";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { updatePostedPostInStateAction } from "../../redux/actions/posts";
+import { PostProps } from "./PostMediaProfile";
 
 export interface NewPostProps {
    show: boolean;
@@ -15,25 +16,41 @@ export interface NewPostProps {
 
 type SendingPostType = {
    content: string;
-   media: null;
+   media: null | string;
 };
 
-const NewPost = () => {
+type ModifyPostType = {
+   content: string;
+   isPhotoDeleted: boolean;
+   media: string | File;
+};
+
+const EditPost: React.FC<PostProps> = ({ post }) => {
    const [show, setShow] = useState(false);
-   const [formData, setFormData] = useState<SendingPostType>({
-      content: "",
-      media: null,
+   const [formData, setFormData] = useState<ModifyPostType>({
+      content: post.content || "",
+      media: "",
+      isPhotoDeleted: false,
    });
+
+   const [newMediaLink, setNewMediaLink] = useState("");
 
    // handles close and post buttons
    const handleShow = () => setShow(true);
    const handleClose = () => {
       setShow(false);
       setFormData({
-         content: "",
-         media: null,
+         content: post.content || "",
+         media: "",
+         isPhotoDeleted: false,
       });
    };
+
+   const handleRemoveImage = () =>
+      setFormData({
+         ...formData,
+         isPhotoDeleted: true,
+      });
 
    // gets localStorage saved data
    const { getItem: getToken } = useLocalStorage(TOKEN);
@@ -57,20 +74,48 @@ const NewPost = () => {
          ...formData,
          [target.name]: value,
       });
+
+      console.log("this is input change: ", formData);
    };
 
-   // fetches content(text) post request
-   const postContent = async (formData: SendingPostType) => {
-      // posts content(text)
+   // *****************************************************************************
+   const removeImageFetch = async () => {
       try {
-         const response = await fetch(process.env.REACT_APP_BE_URL + "/posts", {
-            method: "POST",
-            body: JSON.stringify(formData),
-            headers: {
-               Authorization: "Bearer " + getToken(),
-               "Content-Type": "application/json",
-            },
-         });
+         const response = await fetch(
+            process.env.REACT_APP_BE_URL + "/posts/" + post.id,
+            {
+               method: "PATCH",
+               body: JSON.stringify(formData),
+               headers: {
+                  Authorization: "Bearer " + getToken(),
+                  "Content-Type": "application/json",
+               },
+            }
+         );
+
+         if (response.ok) {
+            console.log("image deleted");
+            // setImage(false);
+         }
+      } catch (error) {
+         console.log(error);
+      }
+      console.log("remove image id: ", post.id);
+   };
+
+   const patchPost = async (data: SendingPostType) => {
+      try {
+         const response = await fetch(
+            process.env.REACT_APP_BE_URL + "/posts/" + post.id,
+            {
+               method: "PATCH",
+               body: JSON.stringify(data),
+               headers: {
+                  Authorization: "Bearer " + getToken(),
+                  "Content-Type": "application/json",
+               },
+            }
+         );
 
          if (response.ok) {
             // maybe give a feeback
@@ -78,7 +123,10 @@ const NewPost = () => {
             // updates redux store posts list
             let data = await response.json();
 
-            console.log("media saved with text: ", data);
+            console.log("both sides updated");
+
+            console.log("media updated: ", data.media);
+            setNewMediaLink(data.media);
 
             const storePost: ContentItem = {
                ...data,
@@ -94,53 +142,60 @@ const NewPost = () => {
       }
    };
 
+   // fetches content(text) post request
+   const patchPostMedia = async (formData: FormData) => {
+      // posts content(text)
+      try {
+         const response = await fetch(
+            process.env.REACT_APP_BE_URL + "/posts/media/" + post.id,
+            {
+               method: "PATCH",
+               body: formData,
+               headers: {
+                  Authorization: "Bearer " + getToken(),
+               },
+            }
+         );
+
+         if (response.ok) {
+            // maybe give a feeback
+
+            // updates redux store posts list
+            let data = await response.json();
+
+            console.log("media updated: ", data.media);
+            setNewMediaLink(data.media);
+         }
+      } catch (error) {
+         console.log(error);
+      }
+   };
+
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      if (formData.media) {
-         // prepairs media to be posted
-         const postData = new FormData();
-         postData.append("media", formData.media);
-
-         // upload image
-         try {
-            const mediaResponse = await fetch(
-               process.env.REACT_APP_BE_URL + "/posts/media",
-               {
-                  method: "POST",
-                  body: postData,
-                  headers: {
-                     Authorization: "Bearer " + getToken(),
-                  },
-               }
-            );
-
-            if (mediaResponse.ok) {
-               const dataMedia = await mediaResponse.json();
-
-               console.log("this is the post response: ", dataMedia);
-
-               // sets media link in formData
-               const updatedData = {
-                  ...formData,
-                  media: dataMedia.imageUrl,
-                  postId: dataMedia.id,
-               };
-
-               // saves as a normal post wheather the post contains text or not
-               postContent(updatedData);
-            }
-         } catch (error) {
-            console.log(error);
-         }
-      } else {
-         postContent(formData);
+      // update photo
+      if (formData.media instanceof File) {
+         let sendingFormData = new FormData();
+         sendingFormData.append("media", formData.media);
+         console.log("this is sending data: ", sendingFormData);
+         patchPostMedia(sendingFormData);
       }
+
+      // set new content and new media
+      const updataData: SendingPostType = {
+         content: formData.content,
+         media: newMediaLink,
+      };
+
+      // update new content and medis
+      patchPost(updataData);
 
       // after posted set values to empty and null
       setFormData({
+         ...formData,
          content: "",
-         media: null,
+         media: "",
       });
 
       // closes the post modal
@@ -151,13 +206,12 @@ const NewPost = () => {
       <>
          <div
             onClick={handleShow}
-            className="d-flex align-items-center gap-3 pointer"
+            className="d-flex align-items-start gap-1 edit-post-btn pointer"
          >
-            {" "}
-            <PlusCircleFill className="icon-primary-buttom fs-4" />
-            <h5 id="add" className="m-0 lh-1">
-               Add
-            </h5>
+            <PencilSquare className="fs-8 m-0" />
+            <p id="add" className="mb-0 lh-1 fs-8">
+               Edit
+            </p>
          </div>
 
          <Modal
@@ -198,8 +252,22 @@ const NewPost = () => {
                         rows={3}
                      />
                   </Form.Group>
+
+                  <div className="position-relative">
+                     <Image src={post.media || ""} fluid />
+                     <Button
+                        onClick={handleRemoveImage}
+                        variant="danger"
+                        size="sm"
+                        className="m-1 position-absolute top-0 end-0"
+                     >
+                        <span>Remove Image </span>
+                        <Trash3Fill className="mb-1" />
+                     </Button>
+                  </div>
+
                   <Form.Group controlId="formFileSm" className="mb-3">
-                     <Form.Label>Upload Photo</Form.Label>
+                     <Form.Label>Update Photo</Form.Label>
                      <Form.Control
                         name="media"
                         onChange={handleInputChange}
@@ -222,4 +290,4 @@ const NewPost = () => {
    );
 };
 
-export default NewPost;
+export default EditPost;

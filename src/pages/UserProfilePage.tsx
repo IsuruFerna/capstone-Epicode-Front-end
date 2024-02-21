@@ -4,17 +4,21 @@ import HomeLeftside from "../component/home/HomeLeftside";
 import HomeButtomMenu from "../component/home/HomeButtomMenu";
 import ProfileTopMenu from "../component/profile/ProfileTopMenu";
 import { useLocation } from "react-router-dom";
-import { useAppDispatch } from "../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import {
    getSelectedUserDataAction,
    getUserPostsAction,
 } from "../redux/actions/selectedUser-action";
 import ProfileFeed from "../component/profile/ProfileFeed";
+import { getLoggedUserAction } from "../redux/actions/loggedUser";
 
 const UserProfilePage = () => {
    const location = useLocation();
    const path = location.pathname;
    const dispatch = useAppDispatch();
+
+   const loggedUser = useAppSelector((state) => state.userProfile);
+   const selectedUser = useAppSelector((state) => state.selectedUser);
 
    useEffect(() => {
       // gets user name from the path parameter
@@ -23,7 +27,11 @@ const UserProfilePage = () => {
       // fetches and store in redux store, selected user data and selected user posts
       dispatch(getSelectedUserDataAction(pathUserName));
       dispatch(getUserPostsAction(pathUserName));
-   }, [dispatch, path]);
+
+      if (loggedUser.firstName === "") {
+         dispatch(getLoggedUserAction());
+      }
+   }, [dispatch, path, loggedUser.firstName]);
 
    return (
       <>

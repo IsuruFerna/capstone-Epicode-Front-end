@@ -121,6 +121,10 @@
 .content-border-radious {
    border-radius: 10px;
 }
+.content-border-radious-top {
+   border-top-left-radius: 8px;
+   border-top-right-radius: 8px;
+}
 
 .primary-underline {
    margin-top: 0.3rem;
@@ -161,4 +165,15 @@
 .post-user-img-size {
    width: 40px;
    height: 40px;
+}
+
+.edit-post-btn {
+   fill: #363636;
+   color: #363636;
+   text-decoration: none;
+}
+.edit-post-btn:hover {
+   fill: #000000;
+   color: #000000;
+   text-decoration: underline;
 }
