@@ -3,25 +3,32 @@ import { Bookmark, ChevronExpand, Heart } from "react-bootstrap-icons";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { Link } from "react-router-dom";
+import PostDropDown from "./PostDropDown";
+import EditPost from "./EditPost";
 
-interface PostProps {
+export interface PostProps {
    post: ContentItem;
 }
 
 const PostMediaProfile: React.FC<PostProps> = ({ post }) => {
-   const user = useAppSelector((state) => state.selectedUser.userData);
+   const selectedUser = useAppSelector((state) => state.selectedUser.userData);
 
    return (
       <div className="primary-border content-border-radious mt-2">
          <div className="position-relative">
-            <Link
-               className="card-title content-media-top-bg position-absolute top-0 w-100 link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-               to={"/user/" + user.username}
-            >
-               <h5 className="card-title pe-1 mb-0">
-                  {user.firstName + " " + user.lastName}
-               </h5>
-            </Link>
+            <div className="position-absolute top-0 w-100 card-title content-media-top-bg d-flex justify-content-between">
+               <Link
+                  className="link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                  to={"/user/" + selectedUser.username}
+               >
+                  <h5 className="card-title pe-1 mb-0">
+                     {selectedUser.firstName + " " + selectedUser.lastName}
+                  </h5>
+               </Link>
+               <div className="d-flex">
+                  <EditPost post={post} />
+               </div>
+            </div>
             {/* <h5 className="card-title content-media-top-bg position-absolute top-0 w-100">
                {user.firstName + " " + user.lastName}
             </h5> */}

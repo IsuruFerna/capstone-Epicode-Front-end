@@ -9,17 +9,15 @@ interface PostProps {
 }
 
 const PostMediaHome: React.FC<PostProps> = ({ post }) => {
-   const user = useAppSelector((state) => state.selectedUser.userData);
-
    return (
       <div className="primary-border content-border-radious mt-2">
          <div className="position-relative">
             <Link
                className="card-title content-media-top-bg position-absolute top-0 w-100 link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-               to={"/user/" + user.username}
+               to={"/user/" + post.username}
             >
                <h5 className="card-title pe-1 mb-0">
-                  {user.firstName + " " + user.lastName}
+                  {post.firstName + " " + post.lastName}
                </h5>
             </Link>
             {/* <h5 className="card-title content-media-top-bg position-absolute top-0 w-100">

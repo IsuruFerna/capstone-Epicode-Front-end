@@ -2,9 +2,7 @@ import ActionType, {
    Action,
    ContentItem,
 } from "../actions/action-types/action-types";
-import PostActionType, {
-   UpdatePostedPostInStore,
-} from "../actions/action-types/post-types";
+import PostActionType from "../actions/action-types/post-types";
 
 export interface PostState {
    loading: boolean;
