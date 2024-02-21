@@ -42,7 +42,6 @@ const RegisterModal: React.FC<RegisterModelProps> = ({ show, setShow }) => {
 
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      console.log("register form data: ", formData);
 
       try {
          const response = await fetch(

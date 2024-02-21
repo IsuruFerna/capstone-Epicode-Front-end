@@ -1,28 +1,47 @@
 import { Image } from "react-bootstrap";
 import { Bookmark, ChevronExpand, Heart } from "react-bootstrap-icons";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
-import { useAppSelector } from "../../redux/hooks/hooks";
 import { Link } from "react-router-dom";
+import EditPost from "./EditPost";
+import DeletePost from "./DeletePost";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 interface PostProps {
    post: ContentItem;
 }
 
 const PostMediaHome: React.FC<PostProps> = ({ post }) => {
+   const loggedUser = useAppSelector((state) => state.userProfile);
+   const posts = useAppSelector((state) => state.posts);
+
+   const [isLoggedUser, setIsLoggedUser] = useState(false);
+
+   useEffect(() => {
+      if (loggedUser.username === post.username) {
+         setIsLoggedUser(true);
+      }
+   }, [loggedUser.username, post.username, posts.data?.length]);
+
    return (
       <div className="primary-border content-border-radious mt-2">
          <div className="position-relative">
-            <Link
-               className="card-title content-media-top-bg position-absolute top-0 w-100 link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-               to={"/user/" + post.username}
-            >
-               <h5 className="card-title pe-1 mb-0">
-                  {post.firstName + " " + post.lastName}
-               </h5>
-            </Link>
-            {/* <h5 className="card-title content-media-top-bg position-absolute top-0 w-100">
-               {user.firstName + " " + user.lastName}
-            </h5> */}
+            <div className="position-absolute top-0 w-100 card-title content-media-top-bg d-flex justify-content-between">
+               <Link
+                  className="link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                  to={"/user/" + post.username}
+               >
+                  <h5 className="card-title pe-1 mb-0">
+                     {post.firstName + " " + post.lastName}
+                  </h5>
+               </Link>
+               {isLoggedUser && (
+                  <div className="d-flex gap-2 align-items-center pt-1">
+                     <EditPost post={post} />
+                     <DeletePost post={post} />
+                  </div>
+               )}
+            </div>
             <div className="d-flex flex-column justify-content-center">
                <Image
                   className="content-border-radious-top"

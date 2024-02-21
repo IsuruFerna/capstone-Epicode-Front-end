@@ -124,6 +124,20 @@ const selectedUserReducer = (
             },
          };
 
+      // case PostActionType.UPDATE_POSTED_POST_IN_STORE:
+      //    return {
+      //       ...state,
+      //       posts: {
+      //          ...state.posts,
+      //          data: [
+      //             action.payload,
+      //             ...state.posts.data.filter(
+      //                (item) => item.id !== action.payload.id
+      //             ),
+      //          ],
+      //       },
+      //    };
+
       default:
          return state;
    }

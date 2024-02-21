@@ -3,8 +3,9 @@ import { Bookmark, ChevronExpand, Heart } from "react-bootstrap-icons";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { Link } from "react-router-dom";
-import PostDropDown from "./PostDropDown";
 import EditPost from "./EditPost";
+import DeletePost from "./DeletePost";
+import { useEffect, useState } from "react";
 
 export interface PostProps {
    post: ContentItem;
@@ -12,6 +13,15 @@ export interface PostProps {
 
 const PostMediaProfile: React.FC<PostProps> = ({ post }) => {
    const selectedUser = useAppSelector((state) => state.selectedUser.userData);
+   const loggedUser = useAppSelector((state) => state.userProfile);
+
+   const [isLoggedUser, setIsLoggedUser] = useState(false);
+
+   useEffect(() => {
+      if (loggedUser.username === selectedUser.username) {
+         setIsLoggedUser(true);
+      }
+   }, [loggedUser.username, selectedUser.username]);
 
    return (
       <div className="primary-border content-border-radious mt-2">
@@ -25,13 +35,13 @@ const PostMediaProfile: React.FC<PostProps> = ({ post }) => {
                      {selectedUser.firstName + " " + selectedUser.lastName}
                   </h5>
                </Link>
-               <div className="d-flex">
-                  <EditPost post={post} />
-               </div>
+               {isLoggedUser && (
+                  <div className="d-flex gap-2 align-items-center pt-1">
+                     <EditPost post={post} />
+                     <DeletePost post={post} />
+                  </div>
+               )}
             </div>
-            {/* <h5 className="card-title content-media-top-bg position-absolute top-0 w-100">
-               {user.firstName + " " + user.lastName}
-            </h5> */}
             <div className="d-flex flex-column justify-content-center">
                <Image
                   className="content-border-radious-top"

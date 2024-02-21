@@ -1,8 +1,9 @@
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import PostMediaProfile from "../posts/PostMediaProfile";
 import PostProfileText from "../posts/PostTextProfile";
+import { useEffect } from "react";
 
 const ProfileFeed = () => {
    // gets selected user posts

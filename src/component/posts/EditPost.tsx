@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
-import {
-   PencilSquare,
-   PlusCircleFill,
-   Trash3Fill,
-} from "react-bootstrap-icons";
+import { useState } from "react";
+import { PencilSquare, Trash3Fill } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { CloseButton, Form, Image } from "react-bootstrap";
+import { Form, Image } from "react-bootstrap";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { updatePostedPostInStateAction } from "../../redux/actions/posts";
@@ -38,10 +34,6 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
    });
 
    const [newMediaLink, setNewMediaLink] = useState("");
-
-   useEffect(() => {
-      console.log("this is the new media link:", newMediaLink);
-   }, [newMediaLink]);
 
    // handles close and post buttons
    const handleShow = () => setShow(true);
@@ -214,10 +206,10 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
       <>
          <div
             onClick={handleShow}
-            className="d-flex align-items-center gap-1 edit-post-btn pointer"
+            className="d-flex align-items-start gap-1 edit-post-btn pointer"
          >
-            <PencilSquare className="fs-6 m-0" />
-            <p id="add" className="mb-1 lh-1 fs-6">
+            <PencilSquare className="fs-8 m-0" />
+            <p id="add" className="mb-0 lh-1 fs-8">
                Edit
             </p>
          </div>
