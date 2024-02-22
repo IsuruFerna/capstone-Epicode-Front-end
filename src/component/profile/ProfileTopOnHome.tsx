@@ -29,10 +29,12 @@ const ProfileTopOnHome = () => {
             </h5>
             <div className="fw-light text-secondary d-flex fs-8 pt-1 border-top border-secondary-subtle">
                <p className="m-0 pe-2 lh-1">
-                  <span className="fw-medium">100</span> Following
+                  <span className="fw-medium">{loggedUser.followings}</span>{" "}
+                  Following
                </p>
                <p className="m-0 lh-1">
-                  <span className="fw-medium">100</span> Followers
+                  <span className="fw-medium">{loggedUser.followers}</span>{" "}
+                  Followers
                </p>
             </div>
          </div>
