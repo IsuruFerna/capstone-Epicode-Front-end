@@ -13,15 +13,29 @@ export enum SelectedUserPostActionType {
    GET_POST_FAIL = "GET_POST_FAIL",
 }
 
+// export interface SelectedUser {
+//    id: string;
+//    username: string;
+//    firstName: string;
+//    lastName: string;
+//    email: string;
+//    birthDay: string;
+//    profilePicture: string;
+//    role: string;
+//    loading: boolean;
+//    error: null | string;
+// }
 export interface SelectedUser {
    id: string;
-   username: string;
    firstName: string;
    lastName: string;
-   email: string;
-   birthDay: string;
    profilePicture: string;
    role: string;
+   username: string;
+   postAmount: number;
+   followings: number;
+   followers: number;
+   isFollowing: boolean;
    loading: boolean;
    error: null | string;
 }
