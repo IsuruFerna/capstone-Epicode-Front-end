@@ -1,10 +1,12 @@
 import { FetchResponsePostType } from "./action-types";
+import { SetLoggedUserFollowingsAction } from "./loggedUser-types";
 import { UpdatePostedPostInStore } from "./post-types";
 
 enum SelectedUserActionType {
    GET_SELECTED_USER_REQUEST = "GET_SELECTED_USER_REQUEST",
    GET_SELECTED_USER_SUCCESS = "GET_SELECTED_USER_SUCCESS",
    GET_SELECTED_USER_FAIL = "GET_SELECTED_USER_FAIL",
+   UPDATE_FOLLOWERS_COUNT = "UPDATE_FOLLOWERS_COUNT",
 }
 
 export enum SelectedUserPostActionType {
@@ -25,7 +27,14 @@ export enum SelectedUserPostActionType {
 //    loading: boolean;
 //    error: null | string;
 // }
-export interface SelectedUser {
+
+export interface FollowUnfollowResponse {
+   following: number;
+   followers: number;
+   isFollowing: boolean;
+}
+
+export interface SelectedUser extends FollowUnfollowResponse {
    id: string;
    firstName: string;
    lastName: string;
@@ -33,11 +42,13 @@ export interface SelectedUser {
    role: string;
    username: string;
    postAmount: number;
-   followings: number;
-   followers: number;
-   isFollowing: boolean;
    loading: boolean;
    error: null | string;
+}
+
+interface UpdateSelectedUserFollowersCount {
+   type: SelectedUserActionType.UPDATE_FOLLOWERS_COUNT;
+   payload: FollowUnfollowResponse;
 }
 
 interface GetSelectedUserRequestAction {
@@ -75,6 +86,8 @@ export type ActionSelectedUser =
    | GetSelectedUserPostFailAction
    | GetSelectedUserPostRequestAction
    | GetSelectedUserPostSuccessAction
-   | UpdatePostedPostInStore;
+   | UpdatePostedPostInStore
+   | UpdateSelectedUserFollowersCount
+   | SetLoggedUserFollowingsAction;
 
 export default SelectedUserActionType;

@@ -2,18 +2,9 @@ enum UserActionType {
    GET_LOGGED_PROFILE_REQUEST = "GET_LOGGED_PROFILE_REQUEST",
    GET_LOGGED_PROFILE_SUCCESS = "GET_LOGGED_PROFILE_SUCCESS",
    GET_LOGGED_PROFILE_FAIL = "GET_LOGGED_PROFILE_FAIL",
+   SET_LOGGED_FOLLOWING_COUNT = "SET_LOGGED_FOLLOWING_COUNT",
 }
 
-// export type FetchUserProfileType = {
-//    id: string;
-//    firstName: string;
-//    lastName: string;
-//    username: string;
-//    email: string;
-//    birthDay: string;
-//    profilePicture: string;
-//    role: string;
-// };
 export type FetchUserProfileType = {
    id: string;
    firstName: string;
@@ -22,11 +13,16 @@ export type FetchUserProfileType = {
    role: string;
    username: string;
    postAmount: number;
-   followings: number;
+   following: number;
    followers: number;
-   birthDay: String;
+   birthDay: string;
    email: string;
 };
+
+export interface SetLoggedUserFollowingsAction {
+   type: UserActionType.SET_LOGGED_FOLLOWING_COUNT;
+   payload: boolean;
+}
 
 interface GetUserProfileRequestAction {
    type: UserActionType.GET_LOGGED_PROFILE_REQUEST;
@@ -45,6 +41,7 @@ interface GetUserProfileFailAction {
 export type UserProfileAction =
    | GetUserProfileFailAction
    | GetUserProfileRequestAction
-   | GetUserProfileSuccessAction;
+   | GetUserProfileSuccessAction
+   | SetLoggedUserFollowingsAction;
 
 export default UserActionType;

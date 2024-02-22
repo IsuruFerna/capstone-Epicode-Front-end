@@ -28,7 +28,7 @@ const initialState: SelectedUserDataState = {
       role: "",
       username: "",
       postAmount: 0,
-      followings: 0,
+      following: 0,
       followers: 0,
       isFollowing: false,
       loading: false,
@@ -110,7 +110,7 @@ const selectedUserReducer = (
                role: action.payload.role,
                username: action.payload.username,
                postAmount: action.payload.postAmount,
-               followings: action.payload.followings,
+               following: action.payload.following,
                followers: action.payload.followers,
                isFollowing: action.payload.isFollowing,
                loading: false,
@@ -128,19 +128,16 @@ const selectedUserReducer = (
             },
          };
 
-      // case PostActionType.UPDATE_POSTED_POST_IN_STORE:
-      //    return {
-      //       ...state,
-      //       posts: {
-      //          ...state.posts,
-      //          data: [
-      //             action.payload,
-      //             ...state.posts.data.filter(
-      //                (item) => item.id !== action.payload.id
-      //             ),
-      //          ],
-      //       },
-      //    };
+      case SelectedUserActionType.UPDATE_FOLLOWERS_COUNT:
+         return {
+            ...state,
+            userData: {
+               ...state.userData,
+               following: action.payload.following,
+               followers: action.payload.followers,
+               isFollowing: action.payload.isFollowing,
+            },
+         };
 
       default:
          return state;

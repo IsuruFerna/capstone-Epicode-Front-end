@@ -16,7 +16,7 @@ const initialState = {
    role: "",
    username: "",
    postAmount: 0,
-   followings: 0,
+   following: 0,
    followers: 0,
    birthDay: "",
    email: "",
@@ -38,7 +38,7 @@ const userProfileReducer = (
             role: "",
             username: "",
             postAmount: 0,
-            followings: 0,
+            following: 0,
             followers: 0,
             birthDay: "",
             email: "",
@@ -56,7 +56,7 @@ const userProfileReducer = (
             role: action.payload.role,
             username: action.payload.username,
             postAmount: action.payload.postAmount,
-            followings: action.payload.followings,
+            following: action.payload.following,
             followers: action.payload.followers,
             birthDay: action.payload.birthDay,
             email: action.payload,
@@ -73,13 +73,26 @@ const userProfileReducer = (
             role: "",
             username: "",
             postAmount: 0,
-            followings: 0,
+            following: 0,
             followers: 0,
             birthDay: "",
             email: "",
             loading: false,
             error: action.payload,
          };
+
+      case UserActionType.SET_LOGGED_FOLLOWING_COUNT:
+         if (action.payload === true) {
+            return {
+               ...state,
+               following: state.following + 1,
+            };
+         } else {
+            return {
+               ...state,
+               following: state.following - 1,
+            };
+         }
 
       default:
          return state;
