@@ -10,7 +10,7 @@ const ProfileTopMenu = () => {
                {user.firstName + " " + user.lastName}
             </p>
             <p className="m-0 lh-1 text-secondary fw-normal fs-6">
-               32 <span>Posts</span>
+               {user.postAmount} <span>Posts</span>
             </p>
          </div>
       </div>

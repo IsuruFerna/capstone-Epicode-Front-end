@@ -1,13 +1,10 @@
 import { Image } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { useAppSelector } from "../../redux/hooks/hooks";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { getLoggedUserAction } from "../../redux/actions/loggedUser";
 
 const ProfileTopOnHome = () => {
    const loggedUser = useAppSelector((state) => state.userProfile);
    const navigate = useNavigate();
-   const dispatch = useAppDispatch();
 
    // when user clicks on a user name, navigates to the user profile
    const handleClickOnName = () => {
@@ -29,10 +26,12 @@ const ProfileTopOnHome = () => {
             </h5>
             <div className="fw-light text-secondary d-flex fs-8 pt-1 border-top border-secondary-subtle">
                <p className="m-0 pe-2 lh-1">
-                  <span className="fw-medium">100</span> Following
+                  <span className="fw-medium">{loggedUser.following}</span>{" "}
+                  Following
                </p>
                <p className="m-0 lh-1">
-                  <span className="fw-medium">100</span> Followers
+                  <span className="fw-medium">{loggedUser.followers}</span>{" "}
+                  Followers
                </p>
             </div>
          </div>

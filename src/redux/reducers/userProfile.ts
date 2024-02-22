@@ -12,11 +12,14 @@ const initialState = {
    id: "",
    firstName: "",
    lastName: "",
-   username: "",
-   email: "",
-   birthDay: "",
    profilePicture: "",
    role: "",
+   username: "",
+   postAmount: 0,
+   following: 0,
+   followers: 0,
+   birthDay: "",
+   email: "",
    loading: false,
    error: null,
 };
@@ -31,11 +34,14 @@ const userProfileReducer = (
             id: "",
             firstName: "",
             lastName: "",
-            username: "",
-            email: "",
-            birthDay: "",
             profilePicture: "",
             role: "",
+            username: "",
+            postAmount: 0,
+            following: 0,
+            followers: 0,
+            birthDay: "",
+            email: "",
             loading: true,
             error: null,
          };
@@ -46,11 +52,14 @@ const userProfileReducer = (
             id: action.payload.id,
             firstName: action.payload.firstName,
             lastName: action.payload.lastName,
-            username: action.payload.username,
-            email: action.payload.email,
-            birthDay: action.payload.birthDay,
             profilePicture: action.payload.profilePicture,
             role: action.payload.role,
+            username: action.payload.username,
+            postAmount: action.payload.postAmount,
+            following: action.payload.following,
+            followers: action.payload.followers,
+            birthDay: action.payload.birthDay,
+            email: action.payload,
             loading: false,
             error: null,
          };
@@ -60,14 +69,30 @@ const userProfileReducer = (
             id: "",
             firstName: "",
             lastName: "",
-            username: "",
-            email: "",
-            birthDay: "",
             profilePicture: "",
             role: "",
+            username: "",
+            postAmount: 0,
+            following: 0,
+            followers: 0,
+            birthDay: "",
+            email: "",
             loading: false,
             error: action.payload,
          };
+
+      case UserActionType.SET_LOGGED_FOLLOWING_COUNT:
+         if (action.payload === true) {
+            return {
+               ...state,
+               following: state.following + 1,
+            };
+         } else {
+            return {
+               ...state,
+               following: state.following - 1,
+            };
+         }
 
       default:
          return state;

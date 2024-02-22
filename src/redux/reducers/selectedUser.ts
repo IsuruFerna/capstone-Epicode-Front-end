@@ -22,13 +22,15 @@ const initialState: SelectedUserDataState = {
    },
    userData: {
       id: "",
-      username: "",
       firstName: "",
       lastName: "",
-      email: "",
-      birthDay: "",
       profilePicture: "",
       role: "",
+      username: "",
+      postAmount: 0,
+      following: 0,
+      followers: 0,
+      isFollowing: false,
       loading: false,
       error: null,
    },
@@ -102,13 +104,15 @@ const selectedUserReducer = (
             ...state,
             userData: {
                id: action.payload.id,
-               username: action.payload.username,
                firstName: action.payload.firstName,
                lastName: action.payload.lastName,
-               email: action.payload.email,
-               birthDay: action.payload.birthDay,
                profilePicture: action.payload.profilePicture,
                role: action.payload.role,
+               username: action.payload.username,
+               postAmount: action.payload.postAmount,
+               following: action.payload.following,
+               followers: action.payload.followers,
+               isFollowing: action.payload.isFollowing,
                loading: false,
                error: null,
             },
@@ -124,19 +128,16 @@ const selectedUserReducer = (
             },
          };
 
-      // case PostActionType.UPDATE_POSTED_POST_IN_STORE:
-      //    return {
-      //       ...state,
-      //       posts: {
-      //          ...state.posts,
-      //          data: [
-      //             action.payload,
-      //             ...state.posts.data.filter(
-      //                (item) => item.id !== action.payload.id
-      //             ),
-      //          ],
-      //       },
-      //    };
+      case SelectedUserActionType.UPDATE_FOLLOWERS_COUNT:
+         return {
+            ...state,
+            userData: {
+               ...state.userData,
+               following: action.payload.following,
+               followers: action.payload.followers,
+               isFollowing: action.payload.isFollowing,
+            },
+         };
 
       default:
          return state;
