@@ -7,6 +7,10 @@
    background-color: #beb7a462;
 }
 
+.bg-icon-primary-link {
+   text-decoration: none;
+   color: #000000;
+}
 .bg-icon-primary {
    background-color: #ff3f00;
 }
