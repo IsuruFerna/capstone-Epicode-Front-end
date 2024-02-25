@@ -30,8 +30,25 @@
 }
 
 .h-86 {
-   height: 87%;
+   /* height: 87%; */
+   max-height: 500px;
+   overflow-y: scroll;
+
+   -webkit-transform: rotateX(180deg) rotateY(180deg); /* Safari and Chrome */
+   -moz-transform: rotate(180deg); /* Firefox */
+   -ms-transform: rotate(180deg); /* IE 9 */
+   -o-transform: rotate(180deg); /* Opera */
+   transform: rotate(180deg);
 }
+
+.msg-container {
+   -webkit-transform: rotateX(180deg) rotateY(180deg); /* Safari and Chrome */
+   -moz-transform: rotate(180deg); /* Firefox */
+   -ms-transform: rotate(180deg); /* IE 9 */
+   -o-transform: rotate(180deg); /* Opera */
+   transform: rotate(180deg);
+}
+
 .h-20 {
    height: 12%;
 }

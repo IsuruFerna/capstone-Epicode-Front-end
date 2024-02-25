@@ -11,8 +11,11 @@ type MsgAction = SetReceiver;
 const initialState = {
    receiver: {
       message: "",
-      name: "",
+      username: "",
       image: "",
+      id: "",
+      firstName: "",
+      lastName: "",
    },
 };
 

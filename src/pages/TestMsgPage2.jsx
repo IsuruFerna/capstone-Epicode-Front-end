@@ -3,6 +3,7 @@ import SockJS from "sockjs-client";
 import { over } from "stompjs";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
+import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
 
 var stompClient = null;
 const TestMsgPage2 = () => {
@@ -13,10 +14,17 @@ const TestMsgPage2 = () => {
       text: "",
    });
 
+   const { getItem } = useLocalStorage(TOKEN);
+
    function connect() {
-      var socket = new SockJS("http://localhost:8080/chat");
+      var socket = new SockJS(process.env.REACT_APP_BE_URL + "/chat");
       stompClient = over(socket);
-      stompClient.connect({}, function (frame) {
+
+      // set header with the token
+      var headers = {};
+      headers["Authorization"] = "Bearer " + getItem();
+
+      stompClient.connect(headers, function (frame) {
          setConnected(true);
          console.log("Connected: " + frame);
          stompClient.subscribe("/topic/messages", function (messageOutput) {

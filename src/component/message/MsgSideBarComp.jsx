@@ -7,12 +7,37 @@ import { USER, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 
 function MsgSideBarComp() {
    const person = {
-      name: "Alice",
-      message: "message",
+      person: {
+         username: "Alice",
+         message: "message",
+         image: "https://placedog.net/50/50",
+         id: "1234",
+         firstName: "Alice",
+         lastName: "foo",
+      },
+      state: true,
+   };
+   const person1 = {
+      person: {
+         username: "Bob",
+         message: "message",
+         image: "https://placedog.net/50/50",
+         id: "12346",
+         firstName: "Bob",
+         lastName: "foo",
+      },
+      state: true,
    };
    const group = {
-      name: "Group A",
-      message: "message",
+      person: {
+         username: "group1",
+         message: "message",
+         image: "https://placedog.net/50/50",
+         id: "12345",
+         firstName: "Group",
+         lastName: "A",
+      },
+      state: true,
    };
 
    const { getItem: getUser } = useLocalStorage(USER);
@@ -43,10 +68,10 @@ function MsgSideBarComp() {
             <div className="w-90 p-2">
                <MsgBarSearch />
 
-               <MsgReceiver person={group} state={true} />
-               <MsgReceiver person={person} state={false} />
-               <MsgReceiver person={person} state={false} />
-               <MsgReceiver person={person} state={false} />
+               {/* <MsgReceiver person={group} /> */}
+               <MsgReceiver person={group.person} state={group.state} />
+               {/* <MsgReceiver person={person.person} state={false} />
+               <MsgReceiver person={person1.person} state={false} /> */}
             </div>
          </div>
       </>
