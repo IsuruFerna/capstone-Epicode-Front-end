@@ -2,8 +2,30 @@ import { Col, Container, Row } from "react-bootstrap";
 
 import MsgSideBarComp from "../component/message/MsgSideBarComp";
 import MsgMainComp from "../component/message/MsgMainComp";
+import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
+import { useEffect } from "react";
+import { getFollowBackUsersAction } from "../redux/actions/message";
 
-function MessagePage() {
+const MessagePage = () => {
+   const dispatch = useAppDispatch();
+   const followBackList = useAppSelector(
+      (state) => state.receiver.messageUsersList
+   );
+   const loggedUser = useAppSelector((state) => state.selectedUser.userData);
+
+   useEffect(() => {
+      console.log("reading");
+
+      // fetch message list (only followsback users)
+      if (followBackList.users.length === 0) {
+         dispatch(getFollowBackUsersAction());
+      }
+   }, [
+      loggedUser.following,
+      loggedUser.followers,
+      followBackList.users.length,
+   ]);
+
    return (
       <>
          <Container fluid>
@@ -18,6 +40,6 @@ function MessagePage() {
          </Container>
       </>
    );
-}
+};
 
 export default MessagePage;

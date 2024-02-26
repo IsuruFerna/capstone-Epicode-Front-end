@@ -7,6 +7,10 @@
    background-color: #beb7a462;
 }
 
+.bg-icon-primary-link {
+   text-decoration: none;
+   color: #000000;
+}
 .bg-icon-primary {
    background-color: #ff3f00;
 }
@@ -26,8 +30,27 @@
 }
 
 .h-86 {
-   height: 87%;
+   /* height: 87%; */
+   max-height: 500px;
+   overflow-y: scroll;
+
+   /* safari and chrome, firefox, IE 9, opera */
+   /* -webkit-transform: rotateX(180deg) rotateY(180deg); 
+   -moz-transform: rotate(180deg); 
+   -ms-transform: rotate(180deg); 
+   -o-transform: rotate(180deg); 
+   transform: rotate(180deg); */
 }
+
+.msg-container {
+   /* safari and chrome, firefox, IE 9, opera */
+   /* -webkit-transform: rotateX(180deg) rotateY(180deg); 
+   -moz-transform: rotate(180deg); 
+   -ms-transform: rotate(180deg); 
+   -o-transform: rotate(180deg); 
+   transform: rotate(180deg); */
+}
+
 .h-20 {
    height: 12%;
 }
