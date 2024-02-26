@@ -2,27 +2,21 @@ import { Image } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { switchReceiver } from "../../redux/actions/posts";
 
-type PersonProp = {
-   person: ReduxReceiver;
-   state: boolean;
-};
+// type PersonProp = {
+//    person: ReduxReceiver,
+//    state: boolean,
+// };
 
-export type ReduxReceiver = {
-   username: string;
-   message: string;
-   image: string;
-   id: string;
-   firstName: string;
-   lastName: string;
-};
+// export interface ReduxReceiver {
+//    username: string;
+//    message: string;
+//    image: string;
+//    id: string;
+//    firstName: string;
+//    lastName: string;
+// }
 
-export type ReduxRootState = {
-   receiver: {
-      receiver: ReduxReceiver;
-   };
-};
-
-const MsgReceiver: React.FC<PersonProp> = ({ person, state }) => {
+const MsgReceiver = ({ person }) => {
    const dispatch = useDispatch();
    const image = "https://placedog.net/50/50";
 
@@ -31,7 +25,7 @@ const MsgReceiver: React.FC<PersonProp> = ({ person, state }) => {
       const sendReceiver = {
          username: person.firstName,
          message: person.message,
-         image: person.image,
+         profilePicture: person.profilePicture,
          id: person.id,
          firstName: person.firstName,
          lastName: person.lastName,
@@ -43,7 +37,7 @@ const MsgReceiver: React.FC<PersonProp> = ({ person, state }) => {
       <div
          onClick={handleClick}
          className={`d-flex align-items-center p-2 mb-1 rounded pointer ${
-            state ? "bg-msg-receiver-selected " : "bg-msg-receiver"
+            person.state ? "bg-msg-receiver-selected " : "bg-msg-receiver"
          }`}
       >
          <Image src={image} className="me-3" roundedCircle />

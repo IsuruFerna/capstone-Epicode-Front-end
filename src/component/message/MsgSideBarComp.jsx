@@ -1,9 +1,10 @@
 import { House, PersonCircle, PlusLg } from "react-bootstrap-icons";
 import MsgBarSearch from "./MsgBarSearch";
 import MsgReceiver from "./MsgReceiver";
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
 import { USER, useLocalStorage } from "../../redux/hooks/useLocalStorage";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 function MsgSideBarComp() {
    const person = {
@@ -41,6 +42,9 @@ function MsgSideBarComp() {
    };
 
    const { getItem: getUser } = useLocalStorage(USER);
+   const followBackUserList = useAppSelector(
+      (state) => state.receiver.messageUsersList.users
+   );
 
    return (
       <>
@@ -68,8 +72,12 @@ function MsgSideBarComp() {
             <div className="w-90 p-2">
                <MsgBarSearch />
 
+               {followBackUserList.map((user) => (
+                  <MsgReceiver key={user.id} person={user} />
+               ))}
+
                {/* <MsgReceiver person={group} /> */}
-               <MsgReceiver person={group.person} state={group.state} />
+               {/* <MsgReceiver person={group.person} state={group.state} /> */}
                {/* <MsgReceiver person={person.person} state={false} />
                <MsgReceiver person={person1.person} state={false} /> */}
             </div>

@@ -1,8 +1,9 @@
 import { Dispatch } from "react";
-import { ReduxReceiver } from "../../component/message/MsgReceiver";
+
 import ActionType, { Action, ContentItem } from "./action-types/action-types";
 import { TOKEN, useLocalStorage } from "../hooks/useLocalStorage";
 import PostActionType from "./action-types/post-types";
+import { ReduxReceiver } from "./action-types/message-types";
 
 export const SWITCH_RECEIVER = "SWITCH_RECEIVER";
 export const FETCH_POSTS = "FETCH_POSTS";
