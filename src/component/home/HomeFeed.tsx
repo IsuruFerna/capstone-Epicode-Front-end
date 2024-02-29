@@ -1,6 +1,5 @@
 import { useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
-import { ContentItem } from "../../redux/actions/action-types/action-types";
 import PostFeedText from "../posts/PostTextHome";
 import PostMediaHome from "../posts/PostMediaHome";
 
@@ -19,7 +18,7 @@ const HomeFeed = () => {
             <SpinnerGrow />
          ) : (
             posts.data &&
-            posts.data.map((post: ContentItem) => {
+            posts.data.map((post) => {
                return post.media ? (
                   <PostMediaHome key={post.id} post={post} />
                ) : (

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
 import { useEffect, useState } from "react";
+import LikeMediaPost from "./LikeMediaPost";
 
 export interface PostProps {
    post: ContentItem;
@@ -67,7 +68,7 @@ const PostMediaProfile: React.FC<PostProps> = ({ post }) => {
             </div>
             <div className="d-flex justify-content-around align-items-start ms-2 ">
                <Bookmark className="icon-primary-content" />
-               <Heart className="icon-primary-content" />
+               <LikeMediaPost postId={post.id} isLiked={post.isLiked} />
                <ChevronExpand className="icon-primary-content" />
             </div>
          </div>

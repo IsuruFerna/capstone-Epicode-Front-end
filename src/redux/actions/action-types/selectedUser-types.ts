@@ -1,4 +1,4 @@
-import { FetchResponsePostType } from "./action-types";
+import { FetchResponsePostType, PutLikeAction } from "./action-types";
 import { SetLoggedUserFollowingsAction } from "./loggedUser-types";
 import { UpdatePostedPostInStore } from "./post-types";
 
@@ -88,6 +88,7 @@ export type ActionSelectedUser =
    | GetSelectedUserPostSuccessAction
    | UpdatePostedPostInStore
    | UpdateSelectedUserFollowersCount
-   | SetLoggedUserFollowingsAction;
+   | SetLoggedUserFollowingsAction
+   | PutLikeAction;
 
 export default SelectedUserActionType;

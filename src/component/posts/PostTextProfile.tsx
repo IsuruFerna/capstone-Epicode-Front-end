@@ -1,16 +1,11 @@
-import {
-   Bookmark,
-   CaretDown,
-   CaretUp,
-   ChevronExpand,
-   Dot,
-} from "react-bootstrap-icons";
+import { Bookmark, CaretDown, ChevronExpand, Dot } from "react-bootstrap-icons";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
+import LikeTextPost from "./LikeTextPost";
 
 interface PostProps {
    post: ContentItem;
@@ -61,7 +56,7 @@ const PostTextProfile: React.FC<PostProps> = ({ post }) => {
             </div>
             <div className="d-flex flex-column justify-content-around align-items-center ms-2">
                <Bookmark className="icon-primary-content" />
-               <CaretUp className="icon-primary-content" />
+               <LikeTextPost postId={post.id} isLiked={post.isLiked} />
                <CaretDown className="icon-primary-content" />
                <ChevronExpand className="icon-primary-content" />
             </div>
