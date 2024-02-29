@@ -1,3 +1,4 @@
+import ActionType from "../actions/action-types/action-types";
 import SelectedUserActionType, {
    ActionSelectedUser,
    SelectedUser,
@@ -136,6 +137,23 @@ const selectedUserReducer = (
                following: action.payload.following,
                followers: action.payload.followers,
                isFollowing: action.payload.isFollowing,
+            },
+         };
+
+      case ActionType.PUT_LIKE:
+         return {
+            ...state,
+            posts: {
+               ...state.posts,
+               data: state.posts.data.map((post) =>
+                  post.id === action.payload.id
+                     ? {
+                          ...post,
+                          isLiked: action.payload.isLiked,
+                          likeCount: action.payload.likeCount,
+                       }
+                     : post
+               ),
             },
          };
 

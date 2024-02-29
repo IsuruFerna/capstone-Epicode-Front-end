@@ -22,6 +22,43 @@ export const updatePostedPostInStateAction = (post: ContentItem) => {
    };
 };
 
+export const handleLikeAction = (postId: string) => {
+   return async (dispatch: Dispatch<Action>) => {
+      try {
+         const { getItem } = useLocalStorage(TOKEN);
+
+         let response = await fetch(
+            process.env.REACT_APP_BE_URL + "/like/" + postId,
+            {
+               method: "PUT",
+               headers: {
+                  "Content-type": "application/json",
+                  Authorization: "Bearer " + getItem(),
+               },
+            }
+         );
+
+         if (response.ok) {
+            let data = await response.json();
+            let passingData = {
+               id: postId,
+               isLiked: data.isLiked,
+               likeCount: data.likeCount,
+            };
+
+            dispatch({
+               type: ActionType.PUT_LIKE,
+               payload: passingData,
+            });
+
+            console.log("this is the data to update");
+         }
+      } catch (error) {
+         console.log(error);
+      }
+   };
+};
+
 export const getFeedAction = () => {
    return async (dispatch: Dispatch<Action>) => {
       try {
@@ -41,6 +78,8 @@ export const getFeedAction = () => {
 
          if (response.ok) {
             let fetchedFeed = await response.json();
+
+            console.log("this is fetched data posts: ", fetchedFeed);
 
             dispatch({
                type: ActionType.GET_POST_SUCCESS,

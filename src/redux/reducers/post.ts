@@ -71,6 +71,20 @@ const postReducer = (state: PostState = initialState, action: Action) => {
             data: [action.payload, ...state.data],
          };
 
+      case ActionType.PUT_LIKE: {
+         return {
+            ...state,
+            data: state.data.map((post) =>
+               post.id === action.payload.id
+                  ? {
+                       ...post,
+                       isLiked: action.payload.isLiked,
+                       likeCount: action.payload.likeCount,
+                    }
+                  : post
+            ),
+         };
+      }
       default:
          return state;
    }

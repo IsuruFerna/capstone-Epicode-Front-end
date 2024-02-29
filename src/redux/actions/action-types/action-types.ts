@@ -1,9 +1,10 @@
 import { UpdatePostedPostInStore } from "./post-types";
 
-enum ActionType {
+export enum ActionType {
    GET_POST_REQUEST = "GET_POST_REQUEST",
    GET_POST_SUCCESS = "GET_POST_SUCCESS",
    GET_POST_FAIL = "GET_POST_FAIL",
+   PUT_LIKE = "PUT_LIKE",
 }
 
 type Sort = {
@@ -30,6 +31,8 @@ export type ContentItem = {
    username: string;
    firstName: string;
    lastName: string;
+   isLiked: boolean;
+   likeCount: number;
 };
 
 export type FetchResponsePostType = {
@@ -46,6 +49,12 @@ export type FetchResponsePostType = {
    totalPages: number;
 };
 
+type PutLikeResponseType = {
+   isLiked: boolean;
+   likeCount: number;
+   id: string;
+};
+
 interface GetPostRequestAction {
    type: ActionType.GET_POST_REQUEST;
 }
@@ -60,10 +69,16 @@ interface GetPostFailAction {
    payload: string;
 }
 
+export interface PutLikeAction {
+   type: ActionType.PUT_LIKE;
+   payload: PutLikeResponseType;
+}
+
 export type Action =
    | GetPostFailAction
    | GetPostRequestAction
    | GetPostSuccessAction
-   | UpdatePostedPostInStore;
+   | UpdatePostedPostInStore
+   | PutLikeAction;
 
 export default ActionType;
