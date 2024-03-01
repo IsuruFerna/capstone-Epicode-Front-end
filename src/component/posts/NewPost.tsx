@@ -78,12 +78,11 @@ const NewPost = () => {
             // updates redux store posts list
             let data = await response.json();
 
-            console.log("media saved with text: ", data);
-
             const storePost: ContentItem = {
                ...data,
                firstName: loggedUser.firstName,
                lastName: loggedUser.lastName,
+               username: loggedUser.username,
             };
 
             // updates home feed when posted
