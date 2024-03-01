@@ -9,8 +9,19 @@ const useOutsideClick = (callback: () => void) => {
             const clickedElement = event.target as HTMLElement;
             const isCommentedClicked = clickedElement.id === "comment";
             const isBtnComment = clickedElement.id === "btn-comment";
+            const isBtnCommentEdit =
+               clickedElement.classList.contains("edit-comment");
+            const isBtnClose =
+               clickedElement.classList.contains("btn-close") ||
+               clickedElement.classList.contains("close-btn");
 
-            if (!isCommentedClicked && !isBtnComment) callback();
+            if (
+               !isCommentedClicked &&
+               !isBtnComment &&
+               !isBtnCommentEdit &&
+               !isBtnClose
+            )
+               callback();
          }
       };
 

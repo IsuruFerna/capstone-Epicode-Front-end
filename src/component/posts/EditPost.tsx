@@ -130,20 +130,15 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
             // updates redux store posts list
             let data = await response.json();
 
-            if (data.media) {
-               console.log("media updated: ", data.media);
-               const storePost: ContentItem = {
-                  ...data,
-                  firstName: loggedUser.firstName,
-                  lastName: loggedUser.lastName,
-                  username: loggedUser.username,
-               };
+            const storePost: ContentItem = {
+               ...data,
+               firstName: loggedUser.firstName,
+               lastName: loggedUser.lastName,
+               username: loggedUser.username,
+            };
 
-               // updates home feed when posted
-               dispatch(updatePostedPostInStateAction(storePost));
-            }
-
-            console.log("this is the new media: ", data);
+            // updates home feed when posted
+            dispatch(updatePostedPostInStateAction(storePost));
          }
       } catch (error) {
          console.log(error);
@@ -218,12 +213,10 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
       <>
          <div
             onClick={handleShow}
-            className="d-flex align-items-start gap-1 edit-post-btn pointer"
+            className="d-flex align-items-start gap-1 edit-post-btn pointer edit-comment"
          >
-            <PencilSquare className="fs-8 m-0" />
-            <p id="add" className="mb-0 lh-1 fs-8">
-               Edit
-            </p>
+            <PencilSquare className="fs-8 m-0 edit-comment" />
+            <p className="mb-0 lh-1 fs-8 edit-comment">Edit</p>
          </div>
 
          <Modal
@@ -291,7 +284,11 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
                   </Form.Group>
                </Modal.Body>
                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
+                  <Button
+                     className="close-btn"
+                     variant="secondary"
+                     onClick={handleClose}
+                  >
                      Close
                   </Button>
                   <Button variant="primary" type="submit">
