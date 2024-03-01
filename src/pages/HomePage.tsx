@@ -28,17 +28,22 @@ const HomePage = () => {
          navigate("/login");
       }
 
-      // loads logged user data to redux store
+      // // loads logged user data to redux store
       dispatch(getLoggedUserAction());
-
-      // loads home feed
-      dispatch(getFeedAction());
 
       // redirects to login page if there's any error getting data
       if (loggedUser.error !== null || posts.error !== null) {
          navigate("/login");
       }
-   }, [dispatch, loggedUser.error, posts.error, path]);
+
+      // loads home feed
+      dispatch(getFeedAction());
+   }, []);
+
+   // useEffect(() => {
+   //    // loads home feed
+   //    dispatch(getFeedAction());
+   // }, []);
 
    return (
       <>

@@ -37,8 +37,9 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
       comment: "",
    });
 
+   // handles outside clicks
+   // closes comments section if the user clicks on not targeted elements
    const ref = useOutsideClick(() => {
-      console.log("clickeed on outside of my component");
       setShowCmt(false);
    });
 
@@ -50,9 +51,9 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
    };
 
    const handleShowComments = () => setShowCmt(!showCmt);
-   const handlePostComment = () => {
-      console.log("this is the posting commnet: ", comment);
 
+   // posts comment using dispatch
+   const handlePostComment = () => {
       dispatch(postCommentsAction(comment.postId, comment.comment));
       setComment({
          postId: post.id,
@@ -61,16 +62,9 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
       setShowCmt(true);
    };
 
-   useEffect(() => {
-      if (loggedUser.username === selectedUser.username) {
-         setIsLoggedUser(true);
-      }
-   }, [loggedUser.username, selectedUser.username, posts.data?.length]);
-
    // gets comments
    useEffect(() => {
       if (showCmt) {
-         console.log("dispatch get comments");
          dispatch(getCommentsAction(post.id));
       }
    }, [comment.postId, showCmt, dispatch, post.id]);
@@ -94,7 +88,7 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
                      {new Date(post.timeStamp).toLocaleDateString()}
                   </h5>
                </div>
-               {isLoggedUser && (
+               {loggedUser.username === post.username && (
                   <div className="d-flex gap-2 align-items-center pt-1">
                      <EditPost post={post} />
                      <DeletePost post={post} />
@@ -174,12 +168,26 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
                                        ).toLocaleDateString()}
                                     </h5>
                                  </div>
-                                 {isLoggedUser && (
-                                    <div className="d-flex gap-2 align-items-center pt-1">
-                                       <EditPost post={post} />
-                                       <DeletePost post={post} />
-                                    </div>
-                                 )}
+
+                                 <div className="d-flex gap-2 align-items-center pt-1">
+                                    {/* user who has commented can delete and edit his own comment */}
+                                    {loggedUser.username ===
+                                       comment.username && (
+                                       <>
+                                          <EditPost post={post} />
+                                          <DeletePost post={post} />
+                                       </>
+                                    )}
+
+                                    {/* post owner can delete comments */}
+                                    {loggedUser.username === post.username &&
+                                       loggedUser.username !==
+                                          comment.username && (
+                                          <>
+                                             <DeletePost post={post} />
+                                          </>
+                                       )}
+                                 </div>
                               </div>
 
                               <div className="d-flex justify-contnet-between">

@@ -1,7 +1,9 @@
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import PostFeedText from "../posts/PostTextHome";
 import PostMediaHome from "../posts/PostMediaHome";
+import { useEffect } from "react";
+import { getFeedAction } from "../../redux/actions/posts";
 
 const HomeFeed = () => {
    // classical use case
