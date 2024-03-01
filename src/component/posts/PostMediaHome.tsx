@@ -4,7 +4,7 @@ import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { Link } from "react-router-dom";
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import LikeMediaPost from "./LikeMediaPost";
 
@@ -15,14 +15,22 @@ interface PostProps {
 const PostMediaHome: React.FC<PostProps> = ({ post }) => {
    const loggedUser = useAppSelector((state) => state.userProfile);
    const posts = useAppSelector((state) => state.posts);
+   const [postMedia, setPostMedia] = useState(post.media);
 
    const [isLoggedUser, setIsLoggedUser] = useState(false);
 
-   useEffect(() => {
-      if (loggedUser.username === post.username) {
-         setIsLoggedUser(true);
-      }
-   }, [loggedUser.username, post.username, posts.data?.length]);
+   // useEffect(() => {
+   //    setPostMedia(post.media);
+
+   //    console.log("new media link: ", post.media);
+   // }, [post.media]);
+
+   // ! reconsider
+   // useEffect(() => {
+   //    if (loggedUser.username === post.username) {
+   //       setIsLoggedUser(true);
+   //    }
+   // }, [loggedUser.username, post.username, posts.data?.length]);
 
    return (
       <div className="primary-border content-border-radious mt-2">
@@ -36,7 +44,7 @@ const PostMediaHome: React.FC<PostProps> = ({ post }) => {
                      {post.firstName + " " + post.lastName}
                   </h5>
                </Link>
-               {isLoggedUser && (
+               {loggedUser.username === post.username && (
                   <div className="d-flex gap-2 align-items-center pt-1">
                      <EditPost post={post} />
                      <DeletePost post={post} />

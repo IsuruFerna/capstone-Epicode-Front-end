@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { Form, Image } from "react-bootstrap";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
-import { updatePostedPostInStateAction } from "../../redux/actions/posts";
+import { updatePostedPostInStateAction } from "../../redux/actions/posts_action";
 
 export interface NewPostProps {
    show: boolean;

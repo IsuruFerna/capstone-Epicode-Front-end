@@ -8,7 +8,7 @@ import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import { getLoggedUserAction } from "../redux/actions/loggedUser";
-import { getFeedAction } from "../redux/actions/posts";
+import { getFeedAction } from "../redux/actions/posts_action";
 
 const HomePage = () => {
    const { getItem } = useLocalStorage(TOKEN);

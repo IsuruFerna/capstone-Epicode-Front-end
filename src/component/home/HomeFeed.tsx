@@ -3,7 +3,7 @@ import SpinnerGrow from "../UI/SpinnerGrow";
 import PostFeedText from "../posts/PostTextHome";
 import PostMediaHome from "../posts/PostMediaHome";
 import { useEffect } from "react";
-import { getFeedAction } from "../../redux/actions/posts";
+import { getFeedAction } from "../../redux/actions/posts_action";
 
 const HomeFeed = () => {
    // classical use case
