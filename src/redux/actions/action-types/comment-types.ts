@@ -11,6 +11,7 @@ export type CommentResponse = {
    timeStamp: string;
    firstName: string;
    lastName: string;
+   username: string;
 };
 
 interface GetCommentsRequestAction {
