@@ -3,12 +3,14 @@ import messageReducer from "../reducers/message";
 import postReducer from "../reducers/post";
 import userProfileReducer from "../reducers/userProfile";
 import selectedUserReducer from "../reducers/selectedUser";
+import commentReducer from "../reducers/comment_reducer";
 
 const bigReducer = combineReducers({
    receiver: messageReducer,
    posts: postReducer,
    userProfile: userProfileReducer,
    selectedUser: selectedUserReducer,
+   comments: commentReducer,
 });
 
 const store = configureStore({

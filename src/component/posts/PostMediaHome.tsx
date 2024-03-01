@@ -1,5 +1,5 @@
 import { Image } from "react-bootstrap";
-import { Bookmark, ChevronExpand, Heart } from "react-bootstrap-icons";
+import { Bookmark, ChevronExpand } from "react-bootstrap-icons";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { Link } from "react-router-dom";
 import EditPost from "./EditPost";
