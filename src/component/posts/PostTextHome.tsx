@@ -18,6 +18,7 @@ import {
 } from "../../redux/actions/comment_action";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import useOutsideClick from "../UI/useOutsideClick";
+import PostComment from "./PostComment";
 
 interface PostProps {
    post: ContentItem;
@@ -146,74 +147,13 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
                   <div className="comments">
                      <div className="primary-border-buttom content-border-radious p-3">
                         {postComments.comments.map((comment) => (
-                           // TODO: refactor to a component
-                           <div key={comment.id} className="p-3">
-                              <div className="d-flex justify-content-between align-items-start ">
-                                 <div className="d-flex align-items-end">
-                                    <Link
-                                       className="link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                                       to={"/user/" + comment.username}
-                                    >
-                                       <h5 className="card-title pe-1 mb-0">
-                                          {comment.firstName +
-                                             " " +
-                                             comment.lastName}
-                                       </h5>
-                                    </Link>
-                                    <h5 className="fw-lighter text-secondary fs-6 mb-0 lh-base">
-                                       {"@" + comment.username}
-                                       <Dot />
-                                       {new Date(
-                                          comment.timeStamp
-                                       ).toLocaleDateString()}
-                                    </h5>
-                                 </div>
-
-                                 <div className="d-flex gap-2 align-items-center pt-1">
-                                    {/* user who has commented can delete and edit his own comment */}
-                                    {loggedUser.username ===
-                                       comment.username && (
-                                       <>
-                                          <EditPost post={post} />
-                                          <DeletePost post={post} />
-                                       </>
-                                    )}
-
-                                    {/* post owner can delete comments */}
-                                    {loggedUser.username === post.username &&
-                                       loggedUser.username !==
-                                          comment.username && (
-                                          <>
-                                             <DeletePost post={post} />
-                                          </>
-                                       )}
-                                 </div>
-                              </div>
-
-                              <div className="d-flex justify-contnet-between">
-                                 {/* ? primary-border-buttom  */}
-                                 <div className="card-body primary-border-top pb-2">
-                                    {comment.comment}
-                                 </div>
-                                 <div className="d-flex flex-column justify-content-around align-items-center ms-2">
-                                    {/* <LikeTextPost
-                                    postId={post.id}
-                                    isLiked={post.isLiked}
-                                 /> */}
-                                    <CaretUp className="icon-primary-content" />
-                                    <CaretDown className="icon-primary-content" />
-                                    {/* <ChevronExpand className="icon-primary-content" /> */}
-                                 </div>
-                              </div>
-
-                              {/* <label htmlFor="reply"></label>
-                           <input
-                              id="reply"
-                              type="text"
-                              placeholder="Reply"
-                              className="comment w-92"
-                           /> */}
-                           </div>
+                           // renders each comment
+                           <PostComment
+                              key={comment.id}
+                              loggedUser={loggedUser}
+                              comment={comment}
+                              post={post}
+                           />
                         ))}
                      </div>
                   </div>
