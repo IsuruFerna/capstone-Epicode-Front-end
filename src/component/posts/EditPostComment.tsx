@@ -5,6 +5,9 @@ import Modal from "react-bootstrap/Modal";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { Form, Image } from "react-bootstrap";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
+import { ContentItem } from "../../redux/actions/action-types/action-types";
+import { updatePostedPostInStateAction } from "../../redux/actions/posts_action";
+import { PostProps } from "./PostMediaProfile";
 import { CommentResponse } from "../../redux/actions/action-types/comment-types";
 import { editPostCommentAction } from "../../redux/actions/comment_action";
 

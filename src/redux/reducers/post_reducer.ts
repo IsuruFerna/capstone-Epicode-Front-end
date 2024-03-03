@@ -93,6 +93,14 @@ const postReducer = (state: PostState = initialState, action: Action) => {
             ),
          };
       }
+
+      case PostActionType.ADD_POST_TO_HOME_FEED: {
+         return {
+            ...state,
+            data: [action.payload, ...state.data],
+         };
+      }
+
       default:
          return state;
    }

@@ -22,6 +22,13 @@ export const updatePostedPostInStateAction = (post: ContentItem) => {
    };
 };
 
+export const addNewPostToHomeFeedAction = (post: ContentItem) => {
+   return {
+      type: PostActionType.ADD_POST_TO_HOME_FEED,
+      payload: post,
+   };
+};
+
 export const handleLikeAction = (postId: string) => {
    return async (dispatch: Dispatch<Action>) => {
       try {
