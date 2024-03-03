@@ -79,8 +79,6 @@ export const getFeedAction = () => {
          if (response.ok) {
             let fetchedFeed = await response.json();
 
-            console.log("this is fetched data posts: ", fetchedFeed);
-
             dispatch({
                type: ActionType.GET_POST_SUCCESS,
                payload: fetchedFeed,

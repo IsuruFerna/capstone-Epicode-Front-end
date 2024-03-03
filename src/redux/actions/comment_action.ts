@@ -74,7 +74,6 @@ export const getCommentsAction = (postId: string) => {
 
          if (response.ok) {
             let data = await response.json();
-            console.log("this is comments: ", data);
 
             dispatch({
                type: CommentActionType.GET_COMMENTS_SUCCESS,
