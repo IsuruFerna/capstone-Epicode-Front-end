@@ -8,54 +8,45 @@ import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { updatePostedPostInStateAction } from "../../redux/actions/posts_action";
 import { PostProps } from "./PostMediaProfile";
+import { CommentResponse } from "../../redux/actions/action-types/comment-types";
+import { editPostCommentAction } from "../../redux/actions/comment_action";
 
 export interface NewPostProps {
    show: boolean;
    setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-type SendingPostType = {
-   content: string;
-   media: null | string;
+type Props = {
+   comment: CommentResponse;
+   postId: string;
 };
 
-type ModifyPostType = {
-   content: string;
-   isPhotoDeleted: boolean;
-   media: string | File;
+type EditCommentType = {
+   comment: string;
 };
 
-const EditPostComment: React.FC<PostProps> = ({ post }) => {
+const EditPostComment: React.FC<Props> = ({ comment, postId }) => {
    const [show, setShow] = useState(false);
-   const [formData, setFormData] = useState<ModifyPostType>({
-      content: post.content || "",
-      media: "",
-      isPhotoDeleted: false,
-   });
+   // const [formData, setFormData] = useState({
+   //    content: comment.comment,
+   // });
 
-   const [newMediaLink, setNewMediaLink] = useState("");
+   const [editComment, setEditComment] = useState({
+      comment: comment.comment,
+   });
 
    // handles close and post buttons
    const handleShow = () => setShow(true);
    const handleClose = () => {
       setShow(false);
-      setFormData({
-         content: post.content || "",
-         media: "",
-         isPhotoDeleted: false,
+      setEditComment({
+         comment: comment.comment,
       });
+
+      // setFormData({
+      //    content: comment.comment,
+      // });
    };
-
-   // ? for further improvements
-   // const [removeImage, setRemoveImage] = useState(false);
-   // const handleRemoveImage = () => {
-   //    // setFormData({
-   //    //    ...formData,
-   //    //    isPhotoDeleted: true,
-   //    // });
-
-   //    setRemoveImage(true);
-   // };
 
    // gets localStorage saved data
    const { getItem: getToken } = useLocalStorage(TOKEN);
@@ -66,57 +57,25 @@ const EditPostComment: React.FC<PostProps> = ({ post }) => {
    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       // handles media input and text input
       const target = event.target as HTMLInputElement;
-      let value: File | null | string;
 
-      if (target.name === "media") {
-         value = target.files ? target.files[0] : null;
-      } else {
-         value = target.value;
-      }
-
-      // sets changed value
-      setFormData({
-         ...formData,
-         [target.name]: value,
+      setEditComment({
+         comment: target.value,
       });
 
-      console.log("this is input change: ", formData);
+      console.log("this is input change: ", editComment);
    };
 
-   // *****************************************************************************
-   // ? delete image btn for further improvements
-   // const removeImageFetch = async () => {
-   //    try {
-   //       const response = await fetch(
-   //          process.env.REACT_APP_BE_URL + "/posts/" + post.id,
-   //          {
-   //             method: "PATCH",
-   //             body: JSON.stringify(formData),
-   //             headers: {
-   //                Authorization: "Bearer " + getToken(),
-   //                "Content-Type": "application/json",
-   //             },
-   //          }
-   //       );
-
-   //       if (response.ok) {
-   //          console.log("image deleted");
-   //          // setImage(false);
-   //       }
-   //    } catch (error) {
-   //       console.log(error);
-   //    }
-   //    console.log("remove image id: ", post.id);
-   // };
-
    // modifies post
-   const patchPost = async (data: SendingPostType) => {
+   const patchComment = async (
+      editComment: EditCommentType,
+      commetId: string
+   ) => {
       try {
          const response = await fetch(
-            process.env.REACT_APP_BE_URL + "/posts/" + post.id,
+            process.env.REACT_APP_BE_URL + "/comments/" + commetId,
             {
                method: "PATCH",
-               body: JSON.stringify(data),
+               body: JSON.stringify(editComment),
                headers: {
                   Authorization: "Bearer " + getToken(),
                   "Content-Type": "application/json",
@@ -129,47 +88,9 @@ const EditPostComment: React.FC<PostProps> = ({ post }) => {
 
             // updates redux store posts list
             let data = await response.json();
+            console.log("this is modified comment: ", data);
 
-            const storePost: ContentItem = {
-               ...data,
-               firstName: loggedUser.firstName,
-               lastName: loggedUser.lastName,
-               username: loggedUser.username,
-            };
-
-            // updates home feed when posted
-            dispatch(updatePostedPostInStateAction(storePost));
-         }
-      } catch (error) {
-         console.log(error);
-      }
-   };
-
-   // modifies media(image)
-   const patchPostMedia = async (formData: FormData) => {
-      try {
-         const response = await fetch(
-            process.env.REACT_APP_BE_URL + "/posts/media/" + post.id,
-            {
-               method: "PATCH",
-               body: formData,
-               headers: {
-                  Authorization: "Bearer " + getToken(),
-               },
-            }
-         );
-
-         if (response.ok) {
-            // maybe give a feeback
-
-            // updates redux store posts list
-            let data = await response.json();
-
-            if (data.imageUrl) {
-               // setes new media link with a parameter to handle browser Caching
-               // otherwise image does not rerender, because patchPostMedia updates only the image file to the same link
-               setNewMediaLink(data.imageUrl + "?t=" + new Date().getTime());
-            }
+            dispatch(editPostCommentAction(data));
          }
       } catch (error) {
          console.log(error);
@@ -180,30 +101,7 @@ const EditPostComment: React.FC<PostProps> = ({ post }) => {
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      // update photo
-      if (formData.media instanceof File) {
-         let sendingFormData = new FormData();
-         sendingFormData.append("media", formData.media);
-         console.log("this is sending data: ", sendingFormData);
-         await patchPostMedia(sendingFormData);
-      }
-
-      // set new content and new media
-      const updataData: SendingPostType = {
-         content: formData.content,
-         media: newMediaLink,
-      };
-
-      // update new content and medis
-      console.log("this is patch post: ", newMediaLink);
-      await patchPost(updataData);
-
-      // after posted set values to empty and null
-      setFormData({
-         ...formData,
-         content: "",
-         media: "",
-      });
+      patchComment(editComment, comment.id);
 
       // closes the post modal
       setShow(false);
@@ -250,36 +148,13 @@ const EditPostComment: React.FC<PostProps> = ({ post }) => {
                   >
                      <Form.Control
                         autoFocus
+                        className="textarea"
                         name="content"
-                        value={formData.content}
+                        value={editComment.comment}
                         onChange={handleInputChange}
                         as="textarea"
+                        maxLength={500}
                         rows={3}
-                     />
-                  </Form.Group>
-
-                  <div className="position-relative">
-                     <Image src={post.media || ""} fluid />
-
-                     {/* ? delete btn for further improvements */}
-                     {/* <Button
-                        onClick={handleRemoveImage}
-                        variant="danger"
-                        size="sm"
-                        className="m-1 position-absolute top-0 end-0"
-                     >
-                        <span>Remove Image </span>
-                        <Trash3Fill className="mb-1" />
-                     </Button> */}
-                  </div>
-
-                  <Form.Group controlId="formFileSm" className="mb-3">
-                     <Form.Label>Update Photo</Form.Label>
-                     <Form.Control
-                        name="media"
-                        onChange={handleInputChange}
-                        type="file"
-                        size="sm"
                      />
                   </Form.Group>
                </Modal.Body>
@@ -291,8 +166,8 @@ const EditPostComment: React.FC<PostProps> = ({ post }) => {
                   >
                      Close
                   </Button>
-                  <Button variant="primary" type="submit">
-                     Post
+                  <Button className="edit" variant="primary" type="submit">
+                     Edit
                   </Button>
                </Modal.Footer>
             </Form>

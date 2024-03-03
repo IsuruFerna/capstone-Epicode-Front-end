@@ -1,12 +1,12 @@
 import React from "react";
 import { CommentResponse } from "../../redux/actions/action-types/comment-types";
 import { CaretDown, CaretUp, Dot } from "react-bootstrap-icons";
-import DeletePost from "./DeletePost";
 import EditPost from "./EditPost";
 import { Link } from "react-router-dom";
 import { UserProfileState } from "../../redux/reducers/userProfile";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import DeletePostComment from "./DeletePostComment";
+import EditPostComment from "./EditPostComment";
 
 type PostCommentProps = {
    comment: CommentResponse;
@@ -42,7 +42,7 @@ const PostComment: React.FC<PostCommentProps> = ({
                {/* user who has commented can delete and edit his own comment */}
                {loggedUser.username === comment.username && (
                   <>
-                     <EditPost post={post} />
+                     <EditPostComment comment={comment} postId={post.id} />
                      <DeletePostComment commentId={comment.id} />
                   </>
                )}

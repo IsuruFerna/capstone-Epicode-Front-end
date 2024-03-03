@@ -7,8 +7,15 @@ import CommentActionType, {
 
 export const deletePostCommentAction = (comentId: string) => {
    return {
-      type: CommentActionType.DELETE_POST,
+      type: CommentActionType.DELETE_COMMENT,
       payload: comentId,
+   };
+};
+
+export const editPostCommentAction = (comment: CommentResponse) => {
+   return {
+      type: CommentActionType.EDIT_COMMENT,
+      payload: comment,
    };
 };
 

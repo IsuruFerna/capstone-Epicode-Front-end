@@ -3,7 +3,8 @@ enum CommentActionType {
    GET_COMMENTS_SUCCESS = "GET_COMMENTS_SUCCESS",
    GET_COMMENTS_FAIL = "GET_COMMENTS_FAIL",
    POST_COMMENT = "POST_COMMENT",
-   DELETE_POST = "DELETE_POST",
+   DELETE_COMMENT = "DELETE_COMMENT",
+   EDIT_COMMENT = "EDIT_COMMENT",
 }
 
 export type CommentResponse = {
@@ -35,8 +36,13 @@ interface PostCommentAction {
 }
 
 interface DeleteCommentAction {
-   type: CommentActionType.DELETE_POST;
+   type: CommentActionType.DELETE_COMMENT;
    payload: string;
+}
+
+interface EditCommentAction {
+   type: CommentActionType.EDIT_COMMENT;
+   payload: CommentResponse;
 }
 
 export type CommentAction =
@@ -44,6 +50,7 @@ export type CommentAction =
    | GetCommentsRequestAction
    | GetCommentsSuccessAction
    | PostCommentAction
-   | DeleteCommentAction;
+   | DeleteCommentAction
+   | EditCommentAction;
 
 export default CommentActionType;

@@ -52,11 +52,25 @@ const commentReducer = (
             return state;
          }
 
-      case CommentActionType.DELETE_POST:
+      case CommentActionType.DELETE_COMMENT:
          return {
             ...state,
             comments: state.comments.filter(
                (comment) => comment.id !== action.payload
+            ),
+         };
+
+      case CommentActionType.EDIT_COMMENT:
+         return {
+            ...state,
+            comments: state.comments.map((comment) =>
+               comment.id === action.payload.id
+                  ? {
+                       ...comment,
+                       // isEdited : action.payload.isEdited,
+                       comment: action.payload.comment,
+                    }
+                  : comment
             ),
          };
 

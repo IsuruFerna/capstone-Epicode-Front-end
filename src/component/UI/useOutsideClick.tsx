@@ -15,13 +15,17 @@ const useOutsideClick = (callback: () => void) => {
                clickedElement.classList.contains("btn-close") ||
                clickedElement.classList.contains("close-btn");
             const isBtnDelete = clickedElement.classList.contains("delete");
+            const isTextarea = clickedElement.classList.contains("textarea");
+            const isBtnEdit = clickedElement.classList.contains("edit");
 
             if (
                !isCommentedClicked &&
                !isBtnComment &&
                !isBtnCommentEdit &&
                !isBtnClose &&
-               !isBtnDelete
+               !isBtnDelete &&
+               !isTextarea &&
+               !isBtnEdit
             )
                callback();
          }
