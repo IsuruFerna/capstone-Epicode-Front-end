@@ -14,6 +14,7 @@ export type CommentResponse = {
    firstName: string;
    lastName: string;
    username: string;
+   isEdited: boolean;
 };
 
 interface GetCommentsRequestAction {

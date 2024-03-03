@@ -5,9 +5,6 @@ import Modal from "react-bootstrap/Modal";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { Form, Image } from "react-bootstrap";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
-import { ContentItem } from "../../redux/actions/action-types/action-types";
-import { updatePostedPostInStateAction } from "../../redux/actions/posts_action";
-import { PostProps } from "./PostMediaProfile";
 import { CommentResponse } from "../../redux/actions/action-types/comment-types";
 import { editPostCommentAction } from "../../redux/actions/comment_action";
 
@@ -27,10 +24,6 @@ type EditCommentType = {
 
 const EditPostComment: React.FC<Props> = ({ comment, postId }) => {
    const [show, setShow] = useState(false);
-   // const [formData, setFormData] = useState({
-   //    content: comment.comment,
-   // });
-
    const [editComment, setEditComment] = useState({
       comment: comment.comment,
    });
@@ -42,10 +35,6 @@ const EditPostComment: React.FC<Props> = ({ comment, postId }) => {
       setEditComment({
          comment: comment.comment,
       });
-
-      // setFormData({
-      //    content: comment.comment,
-      // });
    };
 
    // gets localStorage saved data
@@ -149,7 +138,6 @@ const EditPostComment: React.FC<Props> = ({ comment, postId }) => {
                      <Form.Control
                         autoFocus
                         className="textarea"
-                        name="content"
                         value={editComment.comment}
                         onChange={handleInputChange}
                         as="textarea"
@@ -166,8 +154,8 @@ const EditPostComment: React.FC<Props> = ({ comment, postId }) => {
                   >
                      Close
                   </Button>
-                  <Button className="edit" variant="primary" type="submit">
-                     Edit
+                  <Button className="save" variant="primary" type="submit">
+                     Save
                   </Button>
                </Modal.Footer>
             </Form>

@@ -67,7 +67,7 @@ const commentReducer = (
                comment.id === action.payload.id
                   ? {
                        ...comment,
-                       // isEdited : action.payload.isEdited,
+                       isEdited: action.payload.isEdited,
                        comment: action.payload.comment,
                     }
                   : comment

@@ -1,7 +1,6 @@
 import React from "react";
 import { CommentResponse } from "../../redux/actions/action-types/comment-types";
 import { CaretDown, CaretUp, Dot } from "react-bootstrap-icons";
-import EditPost from "./EditPost";
 import { Link } from "react-router-dom";
 import { UserProfileState } from "../../redux/reducers/userProfile";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
@@ -36,6 +35,11 @@ const PostComment: React.FC<PostCommentProps> = ({
                   <Dot />
                   {new Date(comment.timeStamp).toLocaleDateString()}
                </h5>
+               {comment.isEdited && (
+                  <h5 className="fw-normal text-secondary fs-7 mb-0 lh-base ms-2">
+                     Edited
+                  </h5>
+               )}
             </div>
 
             <div className="d-flex gap-2 align-items-center pt-1">

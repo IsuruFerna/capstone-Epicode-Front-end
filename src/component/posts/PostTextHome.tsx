@@ -1,10 +1,4 @@
-import {
-   Bookmark,
-   CaretDown,
-   CaretUp,
-   ChevronExpand,
-   Dot,
-} from "react-bootstrap-icons";
+import { Bookmark, CaretDown, ChevronExpand, Dot } from "react-bootstrap-icons";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
 import { Link } from "react-router-dom";
 import EditPost from "./EditPost";
@@ -25,13 +19,10 @@ interface PostProps {
 }
 
 const PostTextHome: React.FC<PostProps> = ({ post }) => {
-   const selectedUser = useAppSelector((state) => state.selectedUser.userData);
    const loggedUser = useAppSelector((state) => state.userProfile);
-   const posts = useAppSelector((state) => state.posts);
    const postComments = useAppSelector((state) => state.comments);
    const dispatch = useAppDispatch();
 
-   const [isLoggedUser, setIsLoggedUser] = useState(false);
    const [showCmt, setShowCmt] = useState(false);
    const [comment, setComment] = useState({
       postId: post.id,
@@ -70,8 +61,6 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
       }
    }, [comment.postId, showCmt, dispatch, post.id]);
 
-   useEffect(() => {}, [postComments]);
-
    return (
       <div className="primary-border primary-shadow content-border-radious mt-2 pt-0">
          <div className="primary-border-buttom primary-shadow content-border-radious p-3">
@@ -81,7 +70,7 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
                      className="link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                      to={"/user/" + post.username}
                   >
-                     <h5 className="card-title pe-1 mb-0">
+                     <h5 className="card-title pe-1 mb-0 text-uppercase">
                         {post.firstName + " " + post.lastName}
                      </h5>
                   </Link>
@@ -90,6 +79,11 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
                      <Dot />
                      {new Date(post.timeStamp).toLocaleDateString()}
                   </h5>
+                  {post.edited && (
+                     <h5 className="fw-normal text-secondary fs-7 mb-0 lh-base ms-2">
+                        Edited
+                     </h5>
+                  )}
                </div>
                {loggedUser.username === post.username && (
                   <div className="d-flex gap-2 align-items-center pt-1">
@@ -113,7 +107,6 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
                         className="icon-primary-content"
                      />
                   </div>
-                  {/* <ViewComment post={post} comment={postComments} /> */}
                </div>
             </div>
 
