@@ -22,6 +22,13 @@ export const updatePostedPostInStateAction = (post: ContentItem) => {
    };
 };
 
+export const addNewPostToHomeFeedAction = (post: ContentItem) => {
+   return {
+      type: PostActionType.ADD_POST_TO_HOME_FEED,
+      payload: post,
+   };
+};
+
 export const handleLikeAction = (postId: string) => {
    return async (dispatch: Dispatch<Action>) => {
       try {
@@ -78,8 +85,6 @@ export const getFeedAction = () => {
 
          if (response.ok) {
             let fetchedFeed = await response.json();
-
-            console.log("this is fetched data posts: ", fetchedFeed);
 
             dispatch({
                type: ActionType.GET_POST_SUCCESS,

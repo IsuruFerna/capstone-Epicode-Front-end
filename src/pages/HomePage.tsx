@@ -8,7 +8,7 @@ import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import { getLoggedUserAction } from "../redux/actions/loggedUser";
-import { getFeedAction } from "../redux/actions/posts";
+import { getFeedAction } from "../redux/actions/posts_action";
 
 const HomePage = () => {
    const { getItem } = useLocalStorage(TOKEN);
@@ -28,17 +28,22 @@ const HomePage = () => {
          navigate("/login");
       }
 
-      // loads logged user data to redux store
+      // // loads logged user data to redux store
       dispatch(getLoggedUserAction());
-
-      // loads home feed
-      dispatch(getFeedAction());
 
       // redirects to login page if there's any error getting data
       if (loggedUser.error !== null || posts.error !== null) {
          navigate("/login");
       }
-   }, [dispatch, loggedUser.error, posts.error, path]);
+
+      // loads home feed
+      dispatch(getFeedAction());
+   }, []);
+
+   // useEffect(() => {
+   //    // loads home feed
+   //    dispatch(getFeedAction());
+   // }, []);
 
    return (
       <>

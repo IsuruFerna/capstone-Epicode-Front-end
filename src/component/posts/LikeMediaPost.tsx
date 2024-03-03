@@ -1,7 +1,7 @@
 import React from "react";
 import { Heart, HeartFill } from "react-bootstrap-icons";
 import { useAppDispatch } from "../../redux/hooks/hooks";
-import { handleLikeAction } from "../../redux/actions/posts";
+import { handleLikeAction } from "../../redux/actions/posts_action";
 
 interface LikeProps {
    postId: string;

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { PencilSquare, Trash3Fill } from "react-bootstrap-icons";
+import { PencilSquare } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { Form, Image } from "react-bootstrap";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
-import { updatePostedPostInStateAction } from "../../redux/actions/posts";
+import { updatePostedPostInStateAction } from "../../redux/actions/posts_action";
 import { PostProps } from "./PostMediaProfile";
 
 export interface NewPostProps {
@@ -46,11 +46,16 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
       });
    };
 
-   const handleRemoveImage = () =>
-      setFormData({
-         ...formData,
-         isPhotoDeleted: true,
-      });
+   // ? for further improvements
+   // const [removeImage, setRemoveImage] = useState(false);
+   // const handleRemoveImage = () => {
+   //    // setFormData({
+   //    //    ...formData,
+   //    //    isPhotoDeleted: true,
+   //    // });
+
+   //    setRemoveImage(true);
+   // };
 
    // gets localStorage saved data
    const { getItem: getToken } = useLocalStorage(TOKEN);
@@ -79,30 +84,32 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
    };
 
    // *****************************************************************************
-   const removeImageFetch = async () => {
-      try {
-         const response = await fetch(
-            process.env.REACT_APP_BE_URL + "/posts/" + post.id,
-            {
-               method: "PATCH",
-               body: JSON.stringify(formData),
-               headers: {
-                  Authorization: "Bearer " + getToken(),
-                  "Content-Type": "application/json",
-               },
-            }
-         );
+   // ? delete image btn for further improvements
+   // const removeImageFetch = async () => {
+   //    try {
+   //       const response = await fetch(
+   //          process.env.REACT_APP_BE_URL + "/posts/" + post.id,
+   //          {
+   //             method: "PATCH",
+   //             body: JSON.stringify(formData),
+   //             headers: {
+   //                Authorization: "Bearer " + getToken(),
+   //                "Content-Type": "application/json",
+   //             },
+   //          }
+   //       );
 
-         if (response.ok) {
-            console.log("image deleted");
-            // setImage(false);
-         }
-      } catch (error) {
-         console.log(error);
-      }
-      console.log("remove image id: ", post.id);
-   };
+   //       if (response.ok) {
+   //          console.log("image deleted");
+   //          // setImage(false);
+   //       }
+   //    } catch (error) {
+   //       console.log(error);
+   //    }
+   //    console.log("remove image id: ", post.id);
+   // };
 
+   // modifies post
    const patchPost = async (data: SendingPostType) => {
       try {
          const response = await fetch(
@@ -123,15 +130,11 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
             // updates redux store posts list
             let data = await response.json();
 
-            console.log("both sides updated");
-
-            console.log("media updated: ", data.media);
-            setNewMediaLink(data.media);
-
             const storePost: ContentItem = {
                ...data,
                firstName: loggedUser.firstName,
                lastName: loggedUser.lastName,
+               username: loggedUser.username,
             };
 
             // updates home feed when posted
@@ -142,9 +145,8 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
       }
    };
 
-   // fetches content(text) post request
+   // modifies media(image)
    const patchPostMedia = async (formData: FormData) => {
-      // posts content(text)
       try {
          const response = await fetch(
             process.env.REACT_APP_BE_URL + "/posts/media/" + post.id,
@@ -163,14 +165,18 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
             // updates redux store posts list
             let data = await response.json();
 
-            console.log("media updated: ", data.media);
-            setNewMediaLink(data.media);
+            if (data.imageUrl) {
+               // setes new media link with a parameter to handle browser Caching
+               // otherwise image does not rerender, because patchPostMedia updates only the image file to the same link
+               setNewMediaLink(data.imageUrl + "?t=" + new Date().getTime());
+            }
          }
       } catch (error) {
          console.log(error);
       }
    };
 
+   // uses await to avoid asynchronous updates
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
@@ -179,7 +185,7 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
          let sendingFormData = new FormData();
          sendingFormData.append("media", formData.media);
          console.log("this is sending data: ", sendingFormData);
-         patchPostMedia(sendingFormData);
+         await patchPostMedia(sendingFormData);
       }
 
       // set new content and new media
@@ -189,7 +195,8 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
       };
 
       // update new content and medis
-      patchPost(updataData);
+      console.log("this is patch post: ", newMediaLink);
+      await patchPost(updataData);
 
       // after posted set values to empty and null
       setFormData({
@@ -206,12 +213,10 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
       <>
          <div
             onClick={handleShow}
-            className="d-flex align-items-start gap-1 edit-post-btn pointer"
+            className="d-flex align-items-start gap-1 edit-post-btn pointer edit-comment"
          >
-            <PencilSquare className="fs-8 m-0" />
-            <p id="add" className="mb-0 lh-1 fs-8">
-               Edit
-            </p>
+            <PencilSquare className="fs-8 m-0 edit-comment" />
+            <p className="mb-0 lh-1 fs-8 edit-comment">Edit</p>
          </div>
 
          <Modal
@@ -255,7 +260,9 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
 
                   <div className="position-relative">
                      <Image src={post.media || ""} fluid />
-                     <Button
+
+                     {/* ? delete btn for further improvements */}
+                     {/* <Button
                         onClick={handleRemoveImage}
                         variant="danger"
                         size="sm"
@@ -263,7 +270,7 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
                      >
                         <span>Remove Image </span>
                         <Trash3Fill className="mb-1" />
-                     </Button>
+                     </Button> */}
                   </div>
 
                   <Form.Group controlId="formFileSm" className="mb-3">
@@ -277,7 +284,11 @@ const EditPost: React.FC<PostProps> = ({ post }) => {
                   </Form.Group>
                </Modal.Body>
                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
+                  <Button
+                     className="close-btn"
+                     variant="secondary"
+                     onClick={handleClose}
+                  >
                      Close
                   </Button>
                   <Button variant="primary" type="submit">

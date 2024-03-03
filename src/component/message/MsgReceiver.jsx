@@ -1,6 +1,6 @@
 import { Image } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { switchReceiver } from "../../redux/actions/posts";
+import { switchReceiver } from "../../redux/actions/posts_action";
 
 // type PersonProp = {
 //    person: ReduxReceiver,

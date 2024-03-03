@@ -4,7 +4,7 @@ import SelectedUserActionType, {
    SelectedUser,
    SelectedUserPostActionType,
 } from "../actions/action-types/selectedUser-types";
-import { PostState } from "./post";
+import { PostState } from "./post_reducer";
 
 interface SelectedUserDataState {
    posts: PostState;

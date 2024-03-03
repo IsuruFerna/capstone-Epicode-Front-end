@@ -3,7 +3,7 @@ import UserActionType, {
    UserProfileAction,
 } from "../actions/action-types/loggedUser-types";
 
-interface UserProfileState extends FetchUserProfileType {
+export interface UserProfileState extends FetchUserProfileType {
    loading: boolean;
    error: string | null;
 }
@@ -59,7 +59,7 @@ const userProfileReducer = (
             following: action.payload.following,
             followers: action.payload.followers,
             birthDay: action.payload.birthDay,
-            email: action.payload,
+            email: action.payload.email,
             loading: false,
             error: null,
          };

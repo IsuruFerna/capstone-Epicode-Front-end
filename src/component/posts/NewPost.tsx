@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { Form, Image } from "react-bootstrap";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
-import { updatePostedPostInStateAction } from "../../redux/actions/posts";
+import { addNewPostToHomeFeedAction } from "../../redux/actions/posts_action";
 
 export interface NewPostProps {
    show: boolean;
@@ -19,6 +19,12 @@ type SendingPostType = {
 };
 
 const NewPost = () => {
+   // gets localStorage saved data
+   const { getItem: getToken } = useLocalStorage(TOKEN);
+
+   const dispatch = useAppDispatch();
+   const loggedUser = useAppSelector((state) => state.userProfile);
+
    const [show, setShow] = useState(false);
    const [formData, setFormData] = useState<SendingPostType>({
       content: "",
@@ -34,12 +40,6 @@ const NewPost = () => {
          media: null,
       });
    };
-
-   // gets localStorage saved data
-   const { getItem: getToken } = useLocalStorage(TOKEN);
-
-   const dispatch = useAppDispatch();
-   const loggedUser = useAppSelector((state) => state.userProfile);
 
    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       // handles media input and text input
@@ -78,16 +78,16 @@ const NewPost = () => {
             // updates redux store posts list
             let data = await response.json();
 
-            console.log("media saved with text: ", data);
-
             const storePost: ContentItem = {
                ...data,
+               isLiked: false,
                firstName: loggedUser.firstName,
                lastName: loggedUser.lastName,
+               username: loggedUser.username,
             };
 
             // updates home feed when posted
-            dispatch(updatePostedPostInStateAction(storePost));
+            dispatch(addNewPostToHomeFeedAction(storePost));
          }
       } catch (error) {
          console.log(error);

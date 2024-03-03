@@ -58,6 +58,9 @@
 .w-80 {
    width: 80%;
 }
+.w-85 {
+   width: 85.3%;
+}
 .w-90 {
    width: 90%;
 }
@@ -141,6 +144,10 @@
    border-top: 1px solid #848484;
 }
 
+.primary-shadow {
+   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13), 0 1px 1px 0 rgba(0, 0, 0, 0.11);
+}
+
 .content-border-radious {
    border-radius: 10px;
 }
@@ -162,6 +169,11 @@
 .comment:focus-visible {
    outline: none !important;
    background-color: #8484841a;
+}
+
+.comment-post {
+   background-color: #8484841a;
+   color: #848484;
 }
 
 .content-media-top-bg {

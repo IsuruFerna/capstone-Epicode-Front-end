@@ -68,7 +68,15 @@ const postReducer = (state: PostState = initialState, action: Action) => {
       case PostActionType.UPDATE_POSTED_POST_IN_STORE:
          return {
             ...state,
-            data: [action.payload, ...state.data],
+            data: state.data.map((post) =>
+               post.id === action.payload.id
+                  ? {
+                       ...post,
+                       content: action.payload.content,
+                       media: action.payload.media,
+                    }
+                  : post
+            ),
          };
 
       case ActionType.PUT_LIKE: {
@@ -85,6 +93,14 @@ const postReducer = (state: PostState = initialState, action: Action) => {
             ),
          };
       }
+
+      case PostActionType.ADD_POST_TO_HOME_FEED: {
+         return {
+            ...state,
+            data: [action.payload, ...state.data],
+         };
+      }
+
       default:
          return state;
    }

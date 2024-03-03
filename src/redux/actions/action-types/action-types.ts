@@ -1,4 +1,7 @@
-import { UpdatePostedPostInStore } from "./post-types";
+import {
+   AddNewPostToHomeFeedAction,
+   UpdatePostedPostInStore,
+} from "./post-types";
 
 export enum ActionType {
    GET_POST_REQUEST = "GET_POST_REQUEST",
@@ -79,6 +82,7 @@ export type Action =
    | GetPostRequestAction
    | GetPostSuccessAction
    | UpdatePostedPostInStore
-   | PutLikeAction;
+   | PutLikeAction
+   | AddNewPostToHomeFeedAction;
 
 export default ActionType;

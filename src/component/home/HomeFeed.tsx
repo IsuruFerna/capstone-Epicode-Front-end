@@ -1,7 +1,10 @@
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import SpinnerGrow from "../UI/SpinnerGrow";
 import PostFeedText from "../posts/PostTextHome";
 import PostMediaHome from "../posts/PostMediaHome";
+import { useEffect } from "react";
+import { getFeedAction } from "../../redux/actions/posts_action";
+import PostTextHome from "../posts/PostTextHome";
 
 const HomeFeed = () => {
    // classical use case
@@ -22,7 +25,7 @@ const HomeFeed = () => {
                return post.media ? (
                   <PostMediaHome key={post.id} post={post} />
                ) : (
-                  <PostFeedText key={post.id} post={post} />
+                  <PostTextHome key={post.id} post={post} />
                );
             })
          )}
