@@ -6,10 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { Form, Image } from "react-bootstrap";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
-import {
-   addNewPostToHomeFeedAction,
-   updatePostedPostInStateAction,
-} from "../../redux/actions/posts_action";
+import { addNewPostToHomeFeedAction } from "../../redux/actions/posts_action";
 
 export interface NewPostProps {
    show: boolean;
