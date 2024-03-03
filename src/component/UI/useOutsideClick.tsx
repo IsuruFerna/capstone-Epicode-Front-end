@@ -14,12 +14,14 @@ const useOutsideClick = (callback: () => void) => {
             const isBtnClose =
                clickedElement.classList.contains("btn-close") ||
                clickedElement.classList.contains("close-btn");
+            const isBtnDelete = clickedElement.classList.contains("delete");
 
             if (
                !isCommentedClicked &&
                !isBtnComment &&
                !isBtnCommentEdit &&
-               !isBtnClose
+               !isBtnClose &&
+               !isBtnDelete
             )
                callback();
          }

@@ -6,6 +6,7 @@ import EditPost from "./EditPost";
 import { Link } from "react-router-dom";
 import { UserProfileState } from "../../redux/reducers/userProfile";
 import { ContentItem } from "../../redux/actions/action-types/action-types";
+import DeletePostComment from "./DeletePostComment";
 
 type PostCommentProps = {
    comment: CommentResponse;
@@ -42,7 +43,7 @@ const PostComment: React.FC<PostCommentProps> = ({
                {loggedUser.username === comment.username && (
                   <>
                      <EditPost post={post} />
-                     <DeletePost post={post} />
+                     <DeletePostComment commentId={comment.id} />
                   </>
                )}
 
@@ -50,7 +51,7 @@ const PostComment: React.FC<PostCommentProps> = ({
                {loggedUser.username === post.username &&
                   loggedUser.username !== comment.username && (
                      <>
-                        <DeletePost post={post} />
+                        <DeletePostComment commentId={comment.id} />
                      </>
                   )}
             </div>

@@ -70,6 +70,8 @@ const PostTextHome: React.FC<PostProps> = ({ post }) => {
       }
    }, [comment.postId, showCmt, dispatch, post.id]);
 
+   useEffect(() => {}, [postComments]);
+
    return (
       <div className="primary-border primary-shadow content-border-radious mt-2 pt-0">
          <div className="primary-border-buttom primary-shadow content-border-radious p-3">

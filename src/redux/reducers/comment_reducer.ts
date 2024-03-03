@@ -52,6 +52,14 @@ const commentReducer = (
             return state;
          }
 
+      case CommentActionType.DELETE_POST:
+         return {
+            ...state,
+            comments: state.comments.filter(
+               (comment) => comment.id !== action.payload
+            ),
+         };
+
       default:
          return state;
    }

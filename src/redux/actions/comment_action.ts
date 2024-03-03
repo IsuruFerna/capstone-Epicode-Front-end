@@ -5,6 +5,13 @@ import CommentActionType, {
    CommentResponse,
 } from "./action-types/comment-types";
 
+export const deletePostCommentAction = (comentId: string) => {
+   return {
+      type: CommentActionType.DELETE_POST,
+      payload: comentId,
+   };
+};
+
 export const postCommentsAction = (postId: string, comment: string) => {
    return async (dispatch: Dispatch<CommentAction>) => {
       try {
