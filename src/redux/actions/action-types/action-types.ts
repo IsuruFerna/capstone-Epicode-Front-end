@@ -1,5 +1,6 @@
 import {
    AddNewPostToHomeFeedAction,
+   DeletePostFromFeedAction,
    UpdatePostedPostInStore,
 } from "./post-types";
 
@@ -83,6 +84,7 @@ export type Action =
    | GetPostSuccessAction
    | UpdatePostedPostInStore
    | PutLikeAction
-   | AddNewPostToHomeFeedAction;
+   | AddNewPostToHomeFeedAction
+   | DeletePostFromFeedAction;
 
 export default ActionType;
