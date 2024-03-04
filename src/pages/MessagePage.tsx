@@ -5,16 +5,27 @@ import MsgMainComp from "../component/message/MsgMainComp";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import { useEffect } from "react";
 import { getFollowBackUsersAction } from "../redux/actions/message";
+import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
 
 const MessagePage = () => {
    const dispatch = useAppDispatch();
+   const navigate = useNavigate();
    const followBackList = useAppSelector(
       (state) => state.receiver.messageUsersList
    );
    const loggedUser = useAppSelector((state) => state.selectedUser.userData);
 
+   const { getItem } = useLocalStorage(TOKEN);
+
    useEffect(() => {
-      console.log("reading");
+      if (!getItem()) {
+         navigate("/login");
+      }
+
+      if (loggedUser.error !== null) {
+         navigate("/login");
+      }
 
       // fetch message list (only followsback users)
       if (followBackList.users.length === 0) {

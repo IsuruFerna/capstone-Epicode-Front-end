@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import HomeLeftside from "../component/home/HomeLeftside";
 import HomeButtomMenu from "../component/home/HomeButtomMenu";
 import ProfileTopMenu from "../component/profile/ProfileTopMenu";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import {
    getSelectedUserDataAction,
@@ -11,14 +11,17 @@ import {
 } from "../redux/actions/selectedUser-action";
 import ProfileFeed from "../component/profile/ProfileFeed";
 import { getLoggedUserAction } from "../redux/actions/loggedUser";
+import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
 
 const UserProfilePage = () => {
    const location = useLocation();
    const path = location.pathname;
    const dispatch = useAppDispatch();
+   const navigate = useNavigate();
 
    const loggedUser = useAppSelector((state) => state.userProfile);
    const selectedUser = useAppSelector((state) => state.selectedUser);
+   const { getItem } = useLocalStorage(TOKEN);
 
    useEffect(() => {
       // gets user name from the path parameter
@@ -30,6 +33,14 @@ const UserProfilePage = () => {
 
       if (loggedUser.firstName === "") {
          dispatch(getLoggedUserAction());
+      }
+
+      if (!getItem()) {
+         navigate("/login");
+      }
+
+      if (loggedUser.error !== null) {
+         navigate("/login");
       }
    }, [dispatch, path, loggedUser.firstName]);
 
