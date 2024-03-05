@@ -1,47 +1,56 @@
-# Getting Started with Create React App
+# Social Media App 🚀
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a social media app where users can:
 
-## Available Scripts
+- 📝 Register, log in, and post text and image content
+- 👥 Add friends and follow other users
+- 💬 Chat with follow-back users in real-time
 
-In the project directory, you can run:
+This application uses:
 
-### `npm start`
+- ⚛️ React for Front-end
+- ☕ Spring-boot + Postgresql for the backend
+- 🕸️ Websockets for the chat system
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The UI is completely designed by the author with Adobe XD. 🎨
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+There are two separate git repositories for each front-end and backend:
 
-### `npm test`
+- 🌐 Front-end repo: `https://github.com/IsuruFerna/capstone-Epicode-Front-end`
+- 🗄️ Back-end repo: `https://github.com/IsuruFerna/Capstone-Epicode-Backend`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## 🌐 Front-end 
+### Requirements 📋
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run this project, you need to create a `.env` file in the **root folder** of your front-end project and add the server link of your back-end application. The server link is the URL of your back-end app, which you can get from your hosting service or your local machine. For example, if you are using Heroku, you can find the server link in the settings tab of your app. If you are running the back-end locally, you can use `http://localhost:8080` or whatever port you are using. 🖥️
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To create a `.env` file, you can use any text editor and save it as `.env` in your root folder. Then, you can copy the contents of the `env.example` file and replace the placeholder values with your actual server link. For example:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`REACT_APP_BE_URL = "your server link here"`
 
-### `npm run eject`
+That's it. Now you can use the `REACT_APP_BE_URL` variable in your front-end code to make requests to your back-end. 🚀
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Getting Started 🚀
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To run this project, you need to have **Node.js** and **npm** installed on your machine.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Then, you need to clone the front-end repository to your local folder. You can use the following command in your terminal:
 
-## Learn More
+`[git clone https://github.com/user/social-media-app-frontend.git](https://github.com/IsuruFerna/capstone-Epicode-Front-end.git)`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Next, you need to navigate to the project folder and install the dependencies. You can use the following commands in your terminal:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-# capstone-Epicode-Front-end
+`cd capstone-Epicode-Front-end`
+`npm install`
+
+Finally, you need to start the development server. You can use the following command in your terminal:
+
+`npm start`
+
+This will open the app in your browser at `http://localhost:3000`. 🎉
+
+# 🖊️ Author
+Isuru Madhushan Fernando Warnakulasuriya Mahalekamge
+
