@@ -1,47 +1,48 @@
-import React, { useEffect } from "react";
+import HomeButtomMenu from "../component/home/HomeButtomMenu";
 import { Col, Container, Row } from "react-bootstrap";
 import HomeLeftside from "../component/home/HomeLeftside";
-import HomeButtomMenu from "../component/home/HomeButtomMenu";
-import ProfileTopMenu from "../component/profile/ProfileTopMenu";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
-import {
-   getSelectedUserDataAction,
-   getUserPostsAction,
-} from "../redux/actions/selectedUser-action";
-import ProfileFeed from "../component/profile/ProfileFeed";
-import { getLoggedUserAction } from "../redux/actions/loggedUser";
+import { useEffect, useState } from "react";
 import { TOKEN, useLocalStorage } from "../redux/hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks/hooks";
+import SearchTopbar from "../component/search/SearchTopbar";
 
-const UserProfilePage = () => {
-   const location = useLocation();
-   const path = location.pathname;
-   const dispatch = useAppDispatch();
+import SearchResultsComp from "../component/search/SearchResultsComp";
+
+export type SearchedUserType = {
+   id: string;
+   username: string;
+   firstName: string;
+   lastName: string;
+   profilePicture: string;
+   birthDay: string;
+   email: string;
+   role: string;
+};
+
+const SearchPage = () => {
+   const { getItem } = useLocalStorage(TOKEN);
    const navigate = useNavigate();
 
+   const [searchedResults, setSearchedResults] = useState<
+      SearchedUserType[] | null
+   >(null);
+
    const loggedUser = useAppSelector((state) => state.userProfile);
-   const { getItem } = useLocalStorage(TOKEN);
 
+   // need to validate if there's already a token in localStorage
    useEffect(() => {
-      // gets user name from the path parameter
-      const pathUserName = path.substring(6, path.length);
-
-      // fetches and store in redux store, selected user data and selected user posts
-      dispatch(getSelectedUserDataAction(pathUserName));
-      dispatch(getUserPostsAction(pathUserName));
-
-      if (loggedUser.firstName === "") {
-         dispatch(getLoggedUserAction());
-      }
-
+      // checks the token
+      // if it's not sends to login page
       if (!getItem()) {
          navigate("/login");
       }
 
+      // redirects to login page if there's any error getting data
       if (loggedUser.error !== null) {
          navigate("/login");
       }
-   }, [dispatch, path, loggedUser.firstName]);
+   });
 
    return (
       <>
@@ -58,10 +59,11 @@ const UserProfilePage = () => {
                {/* mid  */}
                <Col md={8} lg={6} className="vh-100 p-0">
                   <div className="sticky-top">
-                     <ProfileTopMenu />
+                     <SearchTopbar setSearchedResults={setSearchedResults} />
                   </div>
                   <div className="h-75">
-                     <ProfileFeed />
+                     {/* <HomeFeed /> */}
+                     <SearchResultsComp searchedResults={searchedResults} />
                   </div>
                   {/* only visible in mobile */}
                   <div className="fixed-bottom">
@@ -77,4 +79,4 @@ const UserProfilePage = () => {
    );
 };
 
-export default UserProfilePage;
+export default SearchPage;

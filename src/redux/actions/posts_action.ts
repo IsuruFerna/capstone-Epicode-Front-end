@@ -22,6 +22,13 @@ export const updatePostedPostInStateAction = (post: ContentItem) => {
    };
 };
 
+export const deletePostFromFeedAction = (postId: string) => {
+   return {
+      type: PostActionType.DELETE_POST,
+      payload: postId,
+   };
+};
+
 export const addNewPostToHomeFeedAction = (post: ContentItem) => {
    return {
       type: PostActionType.ADD_POST_TO_HOME_FEED,

@@ -11,18 +11,21 @@ import {
    GearFill,
    HouseFill,
    PersonCircle,
+   Search,
 } from "react-bootstrap-icons";
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import ProfileTopOnHome from "../profile/ProfileTopOnHome";
 import { useEffect, useState } from "react";
 import ProfileTopOnProfile from "../profile/ProfileTopOnProfile";
 import NewPost from "../posts/NewPost";
+import { getLoggedUserAction } from "../../redux/actions/loggedUser";
 
 const HomeLeftside = () => {
    const { removeItem } = useLocalStorage(TOKEN);
    const { removeItem: removeUser, getItem: getUser } = useLocalStorage(USER);
    const navigate = useNavigate();
    const loggedUser = useAppSelector((state) => state.userProfile);
+   const dispatch = useAppDispatch();
 
    // gets user name from the path parameter
    const location = useLocation();
@@ -37,6 +40,15 @@ const HomeLeftside = () => {
          setIsLoggedUser(true);
       } else {
          setIsLoggedUser(false);
+      }
+
+      // in case if user reloads the page requests logged user data
+      if (
+         loggedUser.firstName === "" ||
+         loggedUser.lastName === "" ||
+         loggedUser.profilePicture === ""
+      ) {
+         dispatch(getLoggedUserAction());
       }
    }, [pathUserName, loggedUser.username]);
 
@@ -64,7 +76,14 @@ const HomeLeftside = () => {
       <>
          <div className="vh-100">
             <div className="sticky-top">
-               {isLoggedUser ? <ProfileTopOnHome /> : <ProfileTopOnProfile />}
+               {/* if path is search renders current user at top else checks is logged user or a selected user */}
+               {path === "/search" ? (
+                  <ProfileTopOnHome />
+               ) : isLoggedUser ? (
+                  <ProfileTopOnHome />
+               ) : (
+                  <ProfileTopOnProfile />
+               )}
             </div>
 
             <div className="d-flex flex-column menu-item-color gap-3 bottom-0 start-0 mb-5 ms-4 fixed-bottom w-25">
@@ -79,7 +98,17 @@ const HomeLeftside = () => {
                </Link>
                <Link
                   className="d-flex align-items-center gap-3 menu-item-color"
-                  to={"/user/" + getUser()?.username}
+                  to="/search"
+               >
+                  <Search className="icon-primary-buttom fs-4" />
+                  <h5 id="search" className="m-0 lh-1">
+                     Search
+                  </h5>
+               </Link>
+               <Link
+                  className="d-flex align-items-center gap-3 menu-item-color"
+                  // to={"/user/" + getUser()?.username}
+                  to={"/user/" + loggedUser.username}
                >
                   <PersonCircle className="icon-primary-buttom fs-4" />
                   <h5 id="profile" className="m-0 lh-1">

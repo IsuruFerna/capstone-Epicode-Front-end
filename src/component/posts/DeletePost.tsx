@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { TOKEN, useLocalStorage } from "../../redux/hooks/useLocalStorage";
 import { PostProps } from "./PostMediaProfile";
+import { useAppDispatch } from "../../redux/hooks/hooks";
+import { deletePostFromFeedAction } from "../../redux/actions/posts_action";
 
 export interface NewPostProps {
    show: boolean;
@@ -12,6 +14,7 @@ export interface NewPostProps {
 
 const DeletePost: React.FC<PostProps> = ({ post }) => {
    const [show, setShow] = useState(false);
+   const dispatch = useAppDispatch();
 
    // handles close and post buttons
    const handleShow = () => setShow(true);
@@ -61,7 +64,8 @@ const DeletePost: React.FC<PostProps> = ({ post }) => {
          if (response.ok) {
             console.log("image and post deleted");
 
-            // delete post also
+            // delete post also in redux store
+            dispatch(deletePostFromFeedAction(post.id));
          }
       } catch (error) {
          console.log(error);
