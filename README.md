@@ -16,7 +16,7 @@ The UI is completely designed by the author with Adobe XD. 🎨
 
 There are two separate git repositories for each front-end and backend:
 
-- [🌐 Front-end repo]: https://github.com/IsuruFerna/capstone-Epicode-Front-end
+- 🌐 Front-end repo: https://github.com/IsuruFerna/capstone-Epicode-Front-end
 - 🗄️ Back-end repo: `https://github.com/IsuruFerna/Capstone-Epicode-Backend`
 
 
