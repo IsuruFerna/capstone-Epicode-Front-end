@@ -16,7 +16,7 @@ The UI is completely designed by the author with Adobe XD. 🎨
 
 There are two separate git repositories for each front-end and backend:
 
-- 🌐 Front-end repo: `https://github.com/IsuruFerna/capstone-Epicode-Front-end`
+- [🌐 Front-end repo]: https://github.com/IsuruFerna/capstone-Epicode-Front-end
 - 🗄️ Back-end repo: `https://github.com/IsuruFerna/Capstone-Epicode-Backend`
 
 
@@ -38,7 +38,7 @@ To run this project, you need to have **Node.js** and **npm** installed on your 
 
 Then, you need to clone the front-end repository to your local folder. You can use the following command in your terminal:
 
-`[git clone https://github.com/user/social-media-app-frontend.git](https://github.com/IsuruFerna/capstone-Epicode-Front-end.git)`
+`git clone https://github.com/user/social-media-app-frontend.git`
 
 Next, you need to navigate to the project folder and install the dependencies. You can use the following commands in your terminal:
 
