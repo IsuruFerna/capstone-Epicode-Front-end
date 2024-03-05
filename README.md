@@ -20,6 +20,7 @@ There are two separate git repositories for each front-end and backend:
 - 🗄️ Back-end repo: https://github.com/IsuruFerna/Capstone-Epicode-Backend
 
 
+
 ## 🌐 Front-end 
 ### Requirements 📋
 
@@ -30,6 +31,8 @@ To create a `.env` file, you can use any text editor and save it as `.env` in yo
 `REACT_APP_BE_URL = "your server link here"`
 
 That's it. Now you can use the `REACT_APP_BE_URL` variable in your front-end code to make requests to your back-end. 🚀
+
+
 
 
 ## Getting Started 🚀
