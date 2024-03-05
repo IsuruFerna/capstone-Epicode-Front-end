@@ -3,6 +3,7 @@ import {
    GearFill,
    HouseFill,
    PersonCircle,
+   Search,
 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { USER, useLocalStorage } from "../../redux/hooks/useLocalStorage";
@@ -18,6 +19,9 @@ const HomeButtomMenu = () => {
             <PersonCircle className="icon-primary-buttom" />
          </Link>
          <NewPostMobile />
+         <Link to="/search">
+            <Search className="icon-primary-buttom" />
+         </Link>
          <Link to="/">
             <HouseFill className="icon-primary-buttom" />
          </Link>

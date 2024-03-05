@@ -153,7 +153,8 @@ const NewPostMobile = () => {
             onClick={handleShow}
             className="d-flex align-items-center gap-3 pointer"
          >
-            <PlusCircleFill className="icon-primary-buttom icon-lg-primary-buttom " />
+            {/* <PlusCircleFill className="icon-primary-buttom icon-lg-primary-buttom " /> */}
+            <PlusCircleFill className="icon-primary-buttom" />
          </div>
 
          <Modal
